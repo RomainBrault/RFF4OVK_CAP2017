@@ -162,6 +162,7 @@ else
     pip install -r ../requirements.txt
 fi
 time make cap2017_pdf
+time make cap2017_supplement_pdf
 
 cd ..
 

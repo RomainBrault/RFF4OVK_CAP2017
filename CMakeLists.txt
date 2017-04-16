@@ -37,3 +37,9 @@ add_latex_document(cap2017.tex
                    IMAGE_DIRS gfx
                    BIBFILES cap2017.bib
                    FORCE_PDF)
+
+add_latex_document(cap2017_supplement.tex
+                   INPUTS ${contents_files}
+                   IMAGE_DIRS gfx
+                   BIBFILES cap2017.bib
+                   FORCE_PDF)

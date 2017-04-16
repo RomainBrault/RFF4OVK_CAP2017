@@ -1,185 +1,1052 @@
 \documentclass[twocolumn]{article}
-
 \usepackage[width=17cm,height=22cm]{geometry}
-\usepackage[french]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
 \usepackage{fancyvrb}
 \usepackage{authblk}
 \usepackage{hyperref}
 \usepackage{pythontex}
+\usepackage{microtype}
 
-\newtheorem{theorem}{Théorème}
+\usepackage{xcite}
+\usepackage{xr}
+\makeatletter
+\newcommand*{\addFileDependency}[1]{% argument=file name and extension
+    \typeout{(#1)}
+    % latexmk will find this if $recorder=0 (however, in that case, it will
+    % ignore #1 if it is a .aux or .pdf file etc and it exists! if it doesn't
+    % exist, it will appear in the list of dependents regardless)
+    \@addtofilelist{#1}
+    % if you want it to appear in \listfiles, not really necessary and latexmk
+    % doesn't use this
+    \IfFileExists{#1}{}{\typeout{No file #1.}}
+    % latexmk will find this message if #1 doesn't exist (yet)
+}
+\makeatother
+\newcommand*{\myexternaldocument}[1]{%
+    \externaldocument{#1}%
+    \addFileDependency{#1.tex}%
+    \addFileDependency{#1.aux}%
+}
+%%% END HELPER CODE
+
+% put all the external documents here!
+\myexternaldocument{cap2017_supplement}
+
+% amsmath, amssymb, natbib, graphicx, url, algorithm2e
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage[algo2e,ruled,linesnumbered]{algorithm2e}
+
+%\usepackage{rotating}% for sideways figures and tables
+\usepackage{longtable}% for long tables
+% The booktabs package is used by this sample document
+% (it provides \toprule, \midrule and \bottomrule).
+% Remove the next line if you don't require it.
+\usepackage{booktabs}
+\usepackage{wrapfig}
+% The siunitx package is used by this sample document
+% to align numbers in a column by their decimal point.
+% Remove the next line if you don't require it.
+\usepackage[load-configurations=version-1]{siunitx} % newer version
+\usepackage{siunitx}
+
+\usepackage[english]{babel}
+\usepackage{pgf}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.12}
+\usepackage{tikz}
+\usepackage{tikzscale}
+\usepackage{fontspec}
+
+\usepackage{etoolbox}
+\apptocmd{\sloppy}{\hbadness 10000\relax}{}{}
+
+\makeatletter
+\def\@textbottom{\vskip \z@ \@plus 20pt}
+\let\@texttop\relax
+\makeatother
+
+\usepackage[titletoc,toc,title]{appendix}
+
+\usepackage{array}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{dsfont}
+\usepackage{cellspace}
+\usepackage{ntheorem}
+\usepackage{cleveref}
+\usepackage{authblk}
+\crefname{algocf}{alg.}{algs.}
+\Crefname{algocf}{Algorithm}{Algorithms}
+
+% Packages hyperref and algorithmic misbehave sometimes. We can fix
+% this with the following command.
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% Definitions of handy macros can go here
+\usepackage[shortlabels]{enumitem}
+\usepackage{commands}
+% \usepackage[1-16,files]{pagesel}
 
 \bibliographystyle{alpha}
 
-\title{Exemple d'article au format CAp'2017}
-\author[1]{Auteur A\thanks{Si vraiment vous voulez mettre votre email
-    ou page web...: A.A@univ-x.fr}}
-\author[2]{Auteur B}
-\affil[1]{Université X, CNRS}
-\affil[2]{Université Y, CNRS et INRIA}
+\title{Random Fourier Features For Operator-Valued Kernels}
+\author[1,2,3]{Romain Brault\thanks{romain.brault@telecom-paristech.fr}}
+\author[2,3]{Florence d'Alch\'e-Buc\thanks{florence.dalche@telecom-paristech.fr}}
+\author[4]{Markus Heinonen\thanks{markus.o.heinonen@aalto.fi}}
+\affil[1]{IBISC, Universit\'e d'\'Evry val d'Essonne}
+\affil[2]{LTCI, CNRS, T\'el\'ecom ParisTech}
+\affil[3]{Universit\'e Paris-Saclay}
+\affil[4]{Department of Information and Computer Science, Aalto University}
 
-\renewcommand\Authands{, et }
-\renewcommand\Authand{ et }
+\renewcommand\Authands{ and }
+\renewcommand\Authand{ and }
 \begin{document}
 \maketitle
 
 \begin{abstract}
-  Ce style est très simple. Vous pouvez ajouter des mots-clef sous le
-  résumé. Le nombre de pages est limité à 10. 
+To scale up operator-valued kernel-based regression devoted to multi-task and
+structured output learning, we extend the celebrated Random Fourier Feature
+methodology to get an approximation of operator-valued kernels. We propose a
+general principle for Operator-valued Random Fourier Feature construction
+relying on a generalization of Bochner's theorem for shift-invariant
+operator-valued Mercer kernels. We prove the uniform convergence of the kernel
+approximation for bounded and unbounded operator random Fourier features using
+appropriate Bernstein matrix concentration inequality. Numerical experiments
+show the quality of the approximation and the efficiency of the corresponding
+linear models on multiclass and regression problems. \emph{This paper was
+presented at the 8$^{th}$ Asian Conference in Machine Learning in 2016 and
+published in JMLR Workshops \& Proceedings 63, in 2016}.
 \end{abstract}
 
 \medskip
 
-\noindent\textbf{Mots-clef}: Style, \LaTeX, CAP.
-
-\section{L'entête}
-\label{sec:lentete}
-
-Rien de spécial. Ajoutez l'option \texttt{twocolumn} à la classe
-\texttt{article}. Le paquet \texttt{geometry} permet facilement de
-régler les tailles de papier:
-
-\begin{Verbatim}
-\documentclass[twocolumn]{article}
-\usepackage[width=17cm,height=24cm]{geometry}
-\end{Verbatim}
-
-Pour les affiliations, vous pouvez utiliser
-\href{http://ctan.org/pkg/authblk}{le paquet \texttt{authblk}}.
+\noindent\textbf{Keywords}: Operator-valued kernel, Random Fourier Features,
+Concentration inequalities.
 
 
-Et évidemment, vous ajoutez ensuite les paquets que vous voulez
-utiliser, les macros les définitions de théorèmes etc... Nous
-recommandons le paquet \texttt{hyperref} puisque les documents
-\texttt{PDF} seront en ligne si vous avez donné votre accord.
+\section{Introduction}
+Multi-task regression \citep{Micchelli2005}, structured classification
+\citep{Dinuzzo2011}, vector field learning \citep{Baldassare2012} and vector
+autoregression \citep{Sindhwani2013,Lim2015} are all learning problems that
+boil down to learning a vector while taking into account an appropriate output
+structure.  n this paper we are interested in a general and flexible approach
+to efficiently implement and learn vector-valued functions, while allowing
+couplings between the outputs. To achieve this goal, we turn to shallow
+architectures, namely the product of a (nonlinear) feature matrix
+$\tilde{\Phi}(x)$ and a parameter vector $\param$ such that $\tilde{f}(x) =
+\tilde{\Phi}(x)^* \param$, and combine two appealing methodologies:
+Operator-Valued Kernel Regression and Random Fourier Features.
+\par
+Operator-Valued Kernels \citep{Micchelli2005,Carmeli2010,Alvarez2012} extend
+the classic scalar-valued kernels to vector-valued functions. As in the scalar
+case, operator-valued kernels (OVKs) are used to build Reproducing Kernel
+Hilbert Spaces (RKHS) in which representer theorems apply as for ridge
+regression or other appropriate loss functional. In these cases, learning a
+model in the RKHS boils down to learning a function of the form
+$f(x)=\sum_{i=1}^n K(x,x_i)\alpha_i$ where $x_1, \ldots, x_n$ are the training
+input data and each $\alpha_i, i=1, \ldots, n$ is a vector of the output space
+$\mathcal{Y}$ and each $K(x,x_i)$, an operator on vectors of $\mathcal{Y}$.
+However, OVKs suffer from the same drawback as classic kernel machines: they
+scale poorly to very large datasets because they are very demanding in terms of
+memory and computation. Therefore, focusing on the case
+$\mathcal{Y}=\mathbb{R}^p$, we propose to approximate OVKs by extending a
+methodology called Random Fourier Features (RFFs) \citep{Rahimi2007, Le2013,
+Alacarte, sriper2015, Bach2015, sutherland2015} so far developed to speed up
+scalar-valued kernel machines. The RFF approach linearizes a shift-invariant
+kernel model by generating explicitly an approximated feature map
+$\tilde{\phi}$. RFFs has been shown to be efficient on large datasets and has
+been further improved by efficient matrix computations
+\citep[``FastFood'']{Le2013}, and is considered as one of the best large scale
+implementations of kernel methods, along with N\"ystrom approaches proposed in
+\cite{Yang2012}.
+\par
+In this paper, we propose general Random Fourier Features for functions in
+vector-valued RKHS. After recalling the background of this study, we present
+the following contributions: (1) we define a general form of Operator Random
+Fourier Feature (ORFF) map for shift-invariant operator-valued kernels, (2) we
+construct explicit operator feature maps for a simple bounded kernel, the
+decomposable kernel, and more complex unbounded kernels curl-free and
+divergence-free\footnote{Also referred to as div-free kernel.} kernels, (3) we
+show the corresponding kernel approximation uniformly converges with high
+probability towards the target kernel and (4) we discuss appropriate learning
+algorithms to benefit from ORFF and illustrate the theoretical approach by a
+few numerical results.
 
-\begin{Verbatim}
-  \usepackage[french]{babel}
-  \usepackage[utf8]{inputenc}
-  \usepackage{fancyvrb}
-  \usepackage{authblk}
-  \usepackage{amsfonts} 
-  \usepackage{amssymb}
-  \usepackage{amsthm,amsmath} 
-  \usepackage{hyperref}
-\end{Verbatim}
-
-\begin{Verbatim}
-  \newtheorem{definition}{Définition} 
-  \newtheorem{theorem}{Théorème}
-  \newtheorem{lemma}{Lemme} 
-  \newtheorem{proposition}{Proposition}
-  \newtheorem{corollary}{Corollaire}
-\end{Verbatim}
-
-\section{Le corps}
-\label{sec:le-corps}
-
-\begin{theorem}
-  Ceci est un beau théorème.
+\section{Background}
+\label{sec:background}
+\subsection{Random Fourier Features}
+We consider scalar-valued functions. Denote $k: \mathbb{R}^d \times
+\mathbb{R}^d \rightarrow \mathbb{R}$ a positive definite kernel on
+$\mathbb{R}^d$. A kernel $k$ is said to be \emph{shift-invariant} for the
+addition if for any $a \in \mathbb{R}^d$, $ \forall (x,x') \in \mathbb{R}^d
+\times \mathbb{R}^d, k(x-a,z-a) = k(x,z)$.  Then, we define $k_0: \mathbb{R}^d
+\rightarrow \mathbb{R}$ the function such that $k(x,z)= k_0(x-z)$. $k_0$ is
+called the \emph{signature} of kernel $k$. Bochner theorem is the theoretical
+result that leads to the Random Fourier Features.
+\begin{theorem}[Bochner's theorem]\label{th:bochner-scalar}
+    Every positive definite complex function is the Fourier transform of a
+    non-negative measure. It implies that any positive definite, continuous and
+    shift-invariant kernel $k$ is the Fourier transform of a non-negative
+    measure $\mu$:
+    \begin{equation}\label{bochner-scalar}
+        k(x,z)=k_0(x-z) = \int_{\mathbb{R}^d} e^{-i \inner{\omega,x - z}}
+        d\mu(\omega).
+    \end{equation}
 \end{theorem}
-
-Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-bla bla bla bla bla bla bla bla bla bla
-
-
-
-\section{Les figures}
-\label{sec:les-figures}
-Utilisez les formes avec \texttt{*} pour mettre une table ou figure
-sur deux colonnes (voir la table~\ref{tab:tab} ou la
-figure~\ref{fig:code}). Bien sûr les formes sans étoile restent
-utlisables pour une seule colonne comme dans la table~\ref{tab:tabcol}.
-
-\begin{table*}[htbp]
-  \centering
-  \begin{tabular}{|l|l|l|l|}
-    \hline
-    \textbf{Colonne 1} & \textbf{Colonne 2} & \textbf{Colonne 3} &
-    \textbf{Colonne 4} \\ \hline
-    1 & 2 & 3 & 4 \\ 
-    1 & 2 & 3 & 4 \\ 
-    1 & 2 & 3 & 4 \\ 
-    1 & 2 & 3 & 4 \\ \hline
-  \end{tabular}
-  \caption{Une grande table}
-  \label{tab:tab}
-\end{table*}
-
-\begin{table}[htbp]
-  \centering
-  \begin{tabular}{|l|l|}
-    \hline
-    \textbf{Colonne 1} & \textbf{Colonne 2}  \\ \hline
-    1 & 2 \\ 
-    1 & 2 \\ 
-    1 & 2 \\ 
-    1 & 2 \\ \hline
-  \end{tabular}
-  \caption{Une petite table}
-  \label{tab:tabcol}
-\end{table}
-
-\begin{SaveVerbatim}{codefigure}
-  \begin{table*}[t]
+Without loss of generality, we assume that $\mu$ is a probability measure, i.e.
+$\int_{\mathbb{R}^d} d\mu(\omega)=1$.  Then we can write \cref{bochner-scalar}
+as an expectation over $\mu$: $k_0(x-z) = \expectation_{\mu}\left[e^{-i
+\inner{\omega,x - z}}\right]$.  If $k$ is real valued we thus only write the
+real part: $k(x,z)$ = $\expectation_{\mu}[\cos \inner{\omega,x - z}]$
+=$\expectation_{\mu}[ \cos \inner{\omega,z}$ $\cos \inner{\omega,x}$ + $\sin
+\inner{\omega,z}$ $\sin \inner{\omega,x}]$.  Let $\Vect_{j=1}^D x_j$ denote the
+$Dm$-length column vector obtained by stacking vectors $x_j \in \mathbb{R}^m$.
+The feature map $\tilde{\phi}: \mathbb{R}^d \rightarrow \mathbb{R}^{2D}$
+defined as
+\begin{equation}\label{eq:rff}
+    \begin{aligned}
+        \tilde{\phi}(x)=\frac{1}{\sqrt{D}}\Vect_{j=1}^D
+        \begin{pmatrix}
+            \cos{\inner{x,\omega_j}} \\ 
+            \sin{\inner{x,\omega_j}}
+        \end{pmatrix}, \enskip \omega_j \sim \mu
+    \end{aligned}
+\end{equation}
+is called a \emph{Random Fourier Feature} (map). Each $\omega_{j}, j=1, \ldots,
+D$ is independently sampled from the inverse Fourier transform $\mu$ of $k_0$.
+This Random Fourier Feature map provides the following Monte-Carlo estimator of
+the kernel: $\tilde{k}(x, z) = \tilde{\phi}(x)^* \tilde{\phi}(z)$. The
+dimension $D$ governs the precision of this approximation, whose uniform
+convergence towards the target kernel (as defined in \cref{bochner-scalar}) can
+be found in \cite{Rahimi2007} and in more recent papers with some refinements
+proposed in \cite{sutherland2015} and \cite{sriper2015}.  Finally, it is
+important to notice that Random Fourier Feature approach \emph{only} requires
+two steps before learning: (1) define the inverse Fourier transform of the
+given shift-invariant kernel, (2) compute the randomized feature map using the
+spectral distribution $\mu$. \cite{Rahimi2007} show that for the Gaussian
+kernel $k(x-z) = exp(-\gamma \norm{x - z}^2)$, the spectral distribution
+$\mu(\omega)$ is Gaussian.
+\subsection{Operator-Valued Kernels (OVK)}
+We now turn to vector-valued functions and consider vector-valued Reproducing
+Kernel Hilbert spaces (vv-RKHS) theory. The definitions are given for input
+space $\mathcal{X} \subset \mathbb{C}^d$ and output space $\mathcal{Y} \subset
+\mathbb{C}^p$. We will define operator-valued kernel as reproducing kernels.
+Given $\mathcal{X}$ and $\mathcal{Y}$, a map
+$K:\mathcal{X}\times\mathcal{X}\to\mathcal{L}(\mathcal{Y})$ is called a
+$\mathcal{Y}$-reproducing kernel if %
+\begin{equation*}
+    \sum\nolimits_{i,j=1}^N\inner{K(x_i,x_j)y_j,y_i}\ge0,
+\end{equation*} %
+for all $x_1,\hdots,x_N$ in $\mathcal{X}$, all $y_1,\hdots,y_N$ in
+$\mathcal{Y}$ and $N\ge1$. Given $x\in\mathcal{X}$,
+$K_x:\mathcal{Y}\to\mathcal{F}(\mathcal{X};\mathcal{Y})$ denotes the linear
+operator whose action on a vector $y$ is the function
+$K_xy\in\mathcal{F}(\mathcal{X};\mathcal{Y})$ defined $\forall z\in\mathcal{X}$
+by $(K_x y)(z)=K(z,x)y$. Additionally, given a $\mathcal{Y}$-reproducing kernel
+$K$, there is a unique Hilbert space
+$\mathcal{H}_K\subset\mathcal{F}(\mathcal{X};\mathcal{Y})$ satisfying
+$K_x\in\mathcal{L}(\mathcal{Y};\mathcal{H}_K), \enskip \forall x\in\mathcal{X}$
+and $f(x)=K^\adjoint_x f, \enskip \forall x\in\mathcal{X}, \forall
+f\in\mathcal{H}_K$, where $K^\adjoint_x:\mathcal{H}_K\to\mathcal{Y}$ is the
+adjoint of $K_x$.  The space $\mathcal{H}_K$ is called the
+\emph{(vector-valued) Reproducing Kernel Hilbert Space} associated with $K$.
+The corres\-ponding product and norm are denoted by $\inner{.,.}_K$ and
+$\norm{.}_K$, respectively. As a consequence \citep{Carmeli2010} we have
+\begin{equation*}
+    K(x,z) = K^\adjoint_x K_z \enskip\forall x,z\in\mathcal{X}
+\end{equation*}
+and
+\begin{equation*}
+    \mathcal{H}_K=\lspan\left\{ K_x y \enskip\middle|\enskip \forall
+    x\in\mathcal{X},\enskip\forall y\in\mathcal{Y} \right\}
+\end{equation*}
+Another way to describe functions of $\mathcal{H}_K$ consists in using a
+suitable feature map.
+\begin{proposition}[Feature map]
+    \label{pr:feature_operator} Let $\mathcal{H}$ be a Hilbert space and
+    $\Phi:\mathcal{X}\to\mathcal{L}(\mathcal{Y};\mathcal{H})$, with $\Phi_x:=
+    \Phi(x)$. Then the operator
+    $W:\mathcal{H}\to\mathcal{F}(\mathcal{X};\mathcal{Y})$ defined by $(W
+    g)(x)=\Phi_x^\adjoint g, \enskip \forall g \in\mathcal{H}, \forall
+    x\in\mathcal{X}$ is a partial isometry from $\mathcal{H}$ onto the
+    reproducing kernel Hilbert space $\mathcal{H}_K$ with reproducing kernel
+    \begin{equation*}
+        K(x,z)=\Phi^\adjoint_x\Phi_z, \enskip \forall x, z\in\mathcal{X}.
+    \end{equation*}
+\end{proposition}
+We call $\Phi$ a \emph{feature map}. In this paper, we are interested on
+finding feature maps of this form for shift-invariant $\mathbb{R}^p$-Mercer
+kernels using the following definitions.  A reproducing kernel $K$ on
+$\mathbb{R}^d$ is a $\mathbb{R}^p$-Mercer provided that $\mathcal{H}_K$ is a
+subspace of $\mathcal{C}(\mathbb{R}^d;\mathbb{R}^p)$. It is said to be a
+\emph{shift-invariant kernel}\footnote{Also referred to as
+\emph{translation-invariant kernel}.} for the addition if $ K(x+a,z+a)=K(x,z),
+\forall (x,z,a) \in \mathcal{X}^3$. It is characterized by a function
+$K_0:\mathcal{X} \to \mathcal{L}(\mathcal{Y})$ of completely positive type such
+that $K(x,z)=K_0(\delta)$, with $\delta=x-z$.
+\section{Operator-valued Random Fourier Features}
+\label{sec:orff}
+\subsection{Spectral representation of shift-invariant vector-valued Mercer
+kernels}
+The goal of this work is to build approximated matrix-valued feature map for
+shift-invariant $\mathbb{R}^p$-Mercer kernels, denoted with $K$, such that any
+function $f \in \mathcal{H}_K$ can be approximated by a function $\tilde{f}$
+defined by: $ \tilde{f}(x) = \tilde{\Phi}(x)^* \theta$, where $\tilde{\Phi}(x)$
+is a matrix of size $(m \times p)$ and $\theta$ is an $m$-dimensional vector.
+For this purpose, we use results of \cite{Carmeli2010} and \cite{Zhang2012}
+to define the Fourier transform of shift-invariant Operator-Valued Mercer. In
+this work, we focus on the finite real case $\mathcal{X} = \mathbb{R}^d$ and
+$\mathcal{Y} = \mathbb{R}^p$. However the whole framework stands for Hilbert
+spaces of infinite dimension.  The following proposition of \cite{Zhang2012}
+extends Bochner's theorem to any shift-invariant $\mathbb{R}^p$-Mercer kernel.
+\begin{proposition}[Operator-valued Bochner's theorem]
+    A continuous function $K$ from $\mathbb{R}^d \times \mathbb{R}^d$ to
+    $\mathcal{L}(\mathbb{R}^p)$ is a shift-invariant reproducing kernel if and
+    only if $\forall x, z \in \mathbb{R}^d$, it is the Fourier transform of a
+    positive operator-valued measure $\mathcal{M}: \mathcal{B}(\mathbb{R}^d)
+    \to \mathcal{L}_+(\mathbb{R}^p)$ with $K(x, z) = \int_{\mathbb{R}^d} e^{-i
+    \inner{x - z, \omega}} d\mathcal{M}(\omega)$, where $\mathcal{M}$ belongs
+    to the set of all the $\mathcal{L}_+(\mathbb{R}^p)$-valued measures of
+    bounded variation on the $\sigma$-algebra of Borel subsets of
+    $\mathbb{R}^d$.
+\end{proposition}
+However it is much more convenient to use a more explicit result that involves
+real-valued (positive) measures. The following proposition instantiates the
+proposition 13 in \cite{Carmeli2010} to matrix-valued operators.
+\begin{proposition}[Spectral decomposition of shift-invariant
+OVK]
+    \label{pr:bochner}
+    Let $\mu$ be a positive measure on $\mathbb{R}^d$ and $A: \mathbb{R}^d\to
+    \mathcal{L}(\mathbb{R}^p)$ such that $A(\cdot)_{\ell m}\in
+    L^1(\mathbb{R}^d,d\mu)$ for all $\ell, m'\inrange{1}{p}$ and
+    $A(\omega)\ge0$ for $\mu$-almost all $\omega$. Then, for all $\delta \in
+    \mathbb{R}^d$, for all $\ell,m \inrange{1}{p}$,
+    \begin{equation}
+        \label{eq:AK0}
+        K_0(\delta)_{\ell
+        m}=\int_{\mathbb{R}^d}e^{-i\inner{\delta,\omega}}A(\omega)_{\ell
+        m}d\mu(\omega)
+    \end{equation}
+    is the kernel signature of a shift-invariant $\mathbb{R}^p$-Mercer kernel
+    $K$ such that $K(x,z)=K_0(x-z)$. In other terms, each real-valued function
+    $K_0(\cdot)_{\ell m}$ is the Fourier transform of $A(\cdot)_{\ell
+    m}\density(\cdot)$ where $\density(\omega)=\frac{d\mu}{d\omega}$ is the
+    Radon-Nikodym derivative (density) of the measure $\mu$. Any
+    shift-invariant kernel is of the above form for some pair $(A(\omega),\mu
+    (\omega))$.
+\end{proposition}
+When $p=1$ one can always assume $A$ is reduced to the scalar $1$, $\mu$ is
+still a bounded positive measure and we retrieve the Bochner theorem applied to
+the scalar case (\cref{th:bochner-scalar}).  Now we introduce the following
+proposition that is a direct consequence of \cref{pr:bochner}. %
+\begin{proposition}[Fourier feature map]
+        \label{pr:fourier_feature_map} Given the conditions of
+        \cref{pr:bochner}, we define $B(\omega)$ such that $A(\omega) =
+        B(\omega)B(\omega)^*$. Then the function $\Phi_x:\mathbb{R}^p
+        \rightarrow L^2(\mathbb{R}^d,\mu;\mathbb{R}^p)$ defined for all $x \in
+        \mathbb{R}^p$ by
+    \begin{equation}
+        \label{eq:feature_shiftinv_operator}
+        \forall y\in\mathbb{R}^p,\enskip \left(\Phi_x y
+        \right)(\omega)=e^{i\inner{x,\omega}}B(\omega)^*y
+    \end{equation}
+    is a feature map of the shift-invariant kernel $K$: i.e.~for all $x,z$ in
+    $\mathbb{R}^d$, $\Phi_x^*\Phi_z=K(x,z)$.
+\end{proposition}
+\begin{proof}
+    For all $y, y'\in \mathbb{R}^p$,
+    \begin{equation*}
+        \begin{aligned}
+            (\Phi_x y)(\cdot)^\adjoint & (\Phi_z y')(\cdot) \\
+            &= \int_{\mathbb{R}^d}e^{i\inner{x,\omega}}y^\adjoint
+            B(\omega)e^{-i\inner{z,\omega}}B(\omega)^\adjoint y'd\mu(\omega) \\
+            &= \int_{\mathbb{R}^d}e^{i\inner{x-z,\omega}}\inner{y,A(\omega)y'}
+            d\mu(\omega),
+        \end{aligned}
+    \end{equation*} %
+    Taking $y=e_\ell$ and $y'=e_m$, where $e_\ell$'s are basis vectors of
+    $\mathbb{R}^p$ yields from \cref{pr:bochner} $(\Phi_x
+    e_\ell)(\cdot)^\adjoint (\Phi_z e_m)(\cdot) = (\Phi_x^\adjoint
+    \Phi_z)_{\ell m} =
+    \int_{\mathbb{R}^d}e^{-i\inner{\delta,\omega}}A(\omega)_{\ell
+    m}d\mu(\omega) = K_0(\delta)_{\ell m}$. %
+\end{proof} %
+To define an approximation of a given operator-valued kernel, we need an
+inversion theorem that provides an explicit construction of the pair
+$A(\omega), \mu(\omega)$ from the kernel signature. We use \cite[Prop.
+14.]{Carmeli2010} instantiated to $\mathbb{R}^p$-Mercer kernel to find such a
+pair.
+\begin{proposition}[\cite{Carmeli2010}]
+    \label{pr:inverse_ovk_Fourier_decomposition}
+    Let $K$ be a shift-invariant $\mathbb{R}^p$-Mercer kernel. Suppose that
+    $\forall \ell, m \inrange{1}{p}$, $K_0(\cdot)_{\ell m}\in
+    L^1(\mathbb{R}^d,dx)$ where $dx$ denotes the Lebesgue measure. Define $C$
+    such that for all $\omega \in \mathbb{R}^d$, and for all $\ell,m
+    \inrange{1}{p}$,
+    \begin{equation}\label{eq:CK0}
+        C(\omega)_{\ell m} = \int_{\mathbb{R}^d} e^{i
+        \inner{\delta,\omega}}K_0(\delta)_{\ell m}d\delta\text{. Then}
+    \end{equation}
+    \begin{enumerate}[i)]
+        \item $C(\omega)$ is a non-negative matrix for all
+        $\omega\in\mathbb{R}^d$,
+        \item $\forall \ell, m \inrange{1}{p}$, $C(\cdot)\in
+        L^1(\mathbb{R}^d,d\omega)$,
+        \item $\forall\delta\in\mathbb{R}^d$, $\forall \ell,m \inrange{1}{p}$,
+        $K_0(\delta)_{\ell m}=\int_{\mathbb{R}^d}e^{-i
+        \inner{\delta,\omega}}C(\omega)_{\ell m}d\omega$.
+    \end{enumerate}
+\end{proposition}
+From \cref{eq:AK0} and \cref{eq:CK0}, we can write the following equality
+concerning the matrix-valued kernel signature $K_0$, coefficient-wise: $\forall
+\delta \in \mathbb{R}^d$, $\forall \ell, m \inrange{1}{p}$, $
+\int_{\mathbb{R}^d}e^{-i\inner{\delta, \omega}}C(\omega)_{\ell
+m}d\omega=\int_{\mathbb{R}^d}e^{-i \inner{\delta, \omega}}A(\omega)_{\ell
+m}d\mu(\omega)$.  We then conclude that the following equality holds almost
+everywhere for $\omega \in \mathbb{R}^d$: $C(\omega)_{\ell m}=A(\omega)_{\ell
+m}p_{\mu}(\omega)$ where $p_{\mu}(\omega)=\frac{d\mu}{d\omega}$. Without loss
+of generality we assume that $\int_{\mathbb{R}^d} d\mu(\omega)=1$ and thus,
+$\mu$ is a probability distribution. Note that this is always possible through
+an appropriate normalization of the kernel. We note $p_{\mu}$ is the density of
+$\mu$. Eventually \cref{pr:bochner} results in an expectation: $ K_0(x-z)=
+\expectation_{\mu}[e^{-i\inner{x-z,\omega}} A(\omega)]$.
+\subsection{Construction of Operator Random Fourier Feature}
+Given a $\mathbb{R}^p$-Mercer shift-invariant kernel $K$ on $\mathbb{R}^d$, we
+build an Operator-Valued Random Fourier Feature (ORFF) map in three steps
+presented in \cref{al:ORFF_construction}. It relies on a Monte-Carlo
+approximation of the spectral representation of $K$ presented in
+\cref{eq:AK0,eq:feature_shiftinv_operator}.
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+\begin{center}
+    \begin{algorithm2e}[tb]
+        \SetAlgoLined
+        \Input{$K(x, z)=K_0(\delta)$ a $\mathbb{R}^p$-shift-invariant Mercer
+        kernel such that $K_0(\delta)_{\ell m}\in L^1(\mathbb{R}^d, dx)$.}
+        \Output{A random feature $\tilde{\Phi}(x)$ such that
+        $\tilde{\Phi}(x)^\adjoint \tilde{\Phi}(z) \approx K(x,z)$}
+        \BlankLine
+        Compute $C:\mathbb{R}^d \rightarrow \mathcal{L}(\mathbb{R}^p)$ from
+        \cref{eq:CK0} by using the inverse Fourier transform of $K_0$, the
+        signature of $K$\; Find $B(\omega)$, $\density(\omega)$ such that
+        $B(\omega)B(\omega)^*\density(\omega)=C(\omega)$\;
+    %     Build an randomized feature map via Monte-Carlo sampling from the
+    %     probability measure $\mu$ and the application $B$\;
+        Draw $D$ random vectors $\omega_j$, $j=1, \hdots, D$ from the
+        probability law $\mu$\;
+        \Return $\tilde{\Phi}(x) = \frac{1}{\sqrt{D}} \Vect_{j=1}^D
+        e^{-i\inner{x,\omega_j}} B(\omega_j)^*$\;
+        \caption{Construction of ORFF}
+        \label{al:ORFF_construction}
+    \end{algorithm2e}
+\end{center}
+\subsection{Monte-Carlo approximation}
+Let $\vect_{j=1}^D X_j$ denote the block matrix of size $rD \times s$ obtained
+by stacking $D$ matrices $X_1, \ldots, X_D$ of size $r \times s$.  Assuming
+steps 1 and 2 have been performed, for all $j=1, \ldots, n$, we find a
+decomposition $A(\omega_j)=B(\omega_j)B(\omega_j)^*$ either by exhibiting a
+general analytical closed-form or using a numerical decomposition. Denote $p
+\times p'$ the dimension of the matrix $B(\omega)$. Based on
+\cref{pr:fourier_feature_map}, we propose a randomized matrix-valued feature
+map: $\forall x \in \mathbb{R}^d$,
+\begin{equation}
+    \label{eq:OV_RFF1}
+    \begin{aligned}
+        \tilde{\Phi}(x) &=\frac{1}{\sqrt{D}}\Vect_{j=1}^D \Phi_x(\omega_j) =
+        \frac{1}{\sqrt{D}}\Vect_{j=1}^D e^{-i \inner{x,\omega_j}}B(\omega_j)^*,
+    \end{aligned}
+\end{equation}
+Where $\forall j\inrange{1}{D},\enskip \omega_j$ are independent identically
+distributed (i.i.d.) random vectors following the probability law $\mu$. The
+corresponding approximation for the kernel is then for all $x,z \in
+\mathbb{R}^d$,
+\begin{equation}
+    \begin{aligned}
+        \tilde{K}(x,z)=\tilde{\Phi}(x)^*\tilde{\Phi}(z)
+        % \frac{1}{D}\sum\nolimits_{j=1}^D e^{-i
+        % \inner{x,\omega_j}}B(\omega_j)e^{i \inner{z,\omega_j}}B(\omega_j)^*=
+        &=\sum\nolimits_{j=1}^D \frac{\Phi_x(\omega_j)^\adjoint
+        \Phi_z(\omega_j)}{D} \\
+        &=
+        \sum\nolimits_{j=1}^D\frac{e^{-i\inner{x-z,\omega_j}}}{D}A(\omega_j).
+    \end{aligned}
+    \label{eq:kernel_approx}
+\end{equation}
+From the weak law of large numbers, one can verify that the Monte-Carlo
+estimator $\tilde{\Phi}(x)^*\tilde{\Phi}(z)$ %(plug-in estimator) converges in
+probability in the weak operator topology to the target kernel $K(x,z)$ when
+$D$ tends to infinity. Namely, 
+\begin{equation*}
+    \begin{aligned}
+        \tilde{K}(x,z)&=\tilde{\Phi}(x)^*\tilde{\Phi}(z)
+        \xrightarrow[D\to\infty]{p.} \expectation_{\mu}\left[
+        e^{-i\inner{x-z,\omega}}A(\omega) \right] \\
+        &=K(x,z)
+    \end{aligned}
+\end{equation*}
+We also use the notation
+$\tilde{K}^j(\delta)=\Phi_x(\omega_j)^*\Phi_z(\omega_j)$ such that
+$\sum_{j=1}^D\tilde{K}^j(\delta)/D=\tilde{K}(x,z)$ and
+$\tilde{K}_0(\delta)=\tilde{K}(x,z)$. As for the scalar-valued kernel, a
+real-valued matrix-valued function has a real matrix-valued Fourier transform
+if $A(\omega)$ is even with respect to $\omega$. Taking this point into
+account, we define the feature map of a real matrix-valued kernel as
+\begin{equation*}
+    \begin{aligned}
+        \tilde{\Phi}(x) = \frac{1}{\sqrt{D}}\Vect_{j=1}^D
+        \begin{pmatrix}
+            \cos{\inner{x,\omega_j}}B(\omega_j)^\adjoint \\ 
+            \sin{\inner{x,\omega_j}}B(\omega_j)^\adjoint
+        \end{pmatrix}, \enskip
+        \omega_j \sim \mu.
+    \end{aligned}
+\end{equation*}
+The kernel approximation becomes
+\begin{equation*}
+    \begin{aligned}
+        \tilde{K}(x,z) &= \frac{1}{D}\sum_{j=1}^D
+        \begin{pmatrix}
+            \cos{\inner{x,\omega_j}}\cos{\inner{z,\omega_j}} \\
+            \sin{\inner{x,\omega_j}}\sin{\inner{z,\omega_j}}
+        \end{pmatrix}^T
+        \begin{pmatrix}
+            1 \\ 1
+        \end{pmatrix}A(\omega_j) 
+        \\
+        &= \frac{1}{D}\sum_{j=1}^D \cos{\inner{x-z,\omega_j}}A(\omega_j)
+    \end{aligned}
+\end{equation*}
+\Cref{al:ORFF_construction} summarizes the construction of ORFF. In the
+following, we give an explicit construction of ORFFs for three well-known
+$\mathbb{R}^p$-Mercer and shift-invariant kernels: the \emph{decomposable
+kernel} introduced in \cite{Micchelli2005} for multi-task regression and the
+\emph{curl-free} and the \emph{divergence-free} kernels studied in
+\cite{Macedo2008} and \cite{Baldassare2012} for vector field learning. All
+these kernels are defined using a scalar-valued shift-invariant Mercer kernel
+$k: \mathbb{R}^d \times \mathbb{R}^d \to \mathbb{R}$ whose signature is denoted
+$k_0$. A usual choice is to choose $k$ as a Gaussian kernel with $k_0(\delta) =
+\exp\left(-\frac{\norm{\delta}^2}{2\sigma^2}\right)$, which gives $\mu=
+\mathcal{N}(0,\sigma^{-2}I)$ as its inverse Fourier transform.
+\begin{definition}[Decomposable kernel]
+    \label{dec-kernel}
+    Let A be a $(p \times p)$ positive semi-definite matrix. If $\forall x, z
+    \in \mathbb{R}^d, K^{dec}(x,z) = k_0(x-z)A$, then $K$ is a
+    $\mathbb{R}^p$-Mercer shift-invariant reproducing kernel.
+\end{definition}
+The matrix $A$ encodes the relationships between the outputs coordinates. If a
+graph coding for the proximity between tasks is known, then it is shown in
+\cite{Evgeniou2005} that $A$ can be chosen equal to the pseudo-inverse
+$L^{\dagger}$ of the graph Laplacian, and then the $\ell_2$ norm in
+$\mathcal{H}_K$ is a graph-regularizing penalty for the outputs (tasks). When
+no prior knowledge is available, $A$ can be set to the empirical covariance of
+the output training data or learned with one of the algorithms proposed in the
+literature \citep{Dinuzzo2011, Sindhwani2013, Lim2015}. In the following the
+Fourier transform is referred to as $\FT{\cdot}$ and the inverse Fourier
+transform as $\IFT{\cdot}$.
+\begin{example}[ORFF for decomposable kernel]
+    \begin{equation*}
+        C^{dec}(\omega)_{\ell m}=\int_{\mathcal{X}}e^{i\inner{\delta,\omega}}
+        k_0(\delta)A_{\ell m} d\delta = A_{\ell m}\IFT{k_0}(\omega)
+    \end{equation*}
+    Hence, $A^{dec}(\omega)=A$ and $p_{\mu}^{dec}(\omega)=\IFT{k_0}(\omega)$.
+\end{example}
+\paragraph{ORFF for curl-free and div-free ker\-nels:}
+Curl-free and divergence-free kernels provide an interesting application of
+operator-valued kernels to \emph{vector field} learning, for which input and
+output spaces have the same dimensions ($d=p$). Applications cover shape
+deformation analysis \citep{Micheli2013} and magnetic fields approximations
+\citep{Wahlstrom2013}. These kernels also discussed in \cite{Fuselier2006}
+allow encoding input-dependent similarities between vector-fields.
+\begin{definition}[Curl-free and Div-free kernel]\label{curl-div-free}
+    We have $d=p$.  The \emph{divergence-free} kernel is defined as
+    $K^{div}(x,z)=K^{div}_0(\delta) = (\nabla\nabla^* - \Delta I) k_0(\delta)$
+    and the \emph{curl-free} kernel as
+    $K^{curl}(x,z)=K_0^{curl}(\delta)=-\nabla\nabla^* k_0(\delta)$, where
+    $\nabla\nabla^*$ is the Hessian operator and $\Delta$ is the Laplacian
+    operator.
+\end{definition}
+Although taken separately these kernels are not universal, a convex combination
+of the curl-free and divergence-free kernels allows to learn any vector field
+that satisfies the Helmholtz decomposition theorem \citep{Macedo2008,
+Baldassare2012}. For curl-free kernel we use the differentiation properties of
+the Fourier transform.
+\begin{example}[ORFF for curl-free kernel] $\forall \ell,m \inrange{1}{p}$,
+    \begin{equation*}
+        \begin{aligned}
+            C^{curl}(\omega)_{\ell m}&=-\IFT{\frac{\partial}{\partial
+            \delta_{\ell}}\frac{\partial}{\partial \delta_{m}}k_0}(\omega) \\
+            &= \omega_{\ell}\omega_m \IFT{k_0}(\omega)
+        \end{aligned}
+    \end{equation*}
+    Hence, $A^{curl}(\omega)=\omega\omega^*$ and
+    $p_{\mu}^{curl}(\omega)=\IFT{k_0}(\omega)$. We can obtain directly:
+    $B^{curl}(\omega)=\omega$.
+\end{example}
+For the divergence-free kernel we first compute the Fourier transform of the
+Laplacian of a scalar kernel using differentiation and linearity properties of
+the Fourier transform. We denote $\delta_{\{\ell=m\}}$ as the Kronecker delta
+which is $1$ if $\ell=m$ and zero otherwise.
+\begin{example}[ORFF for divergence-free kernel]
+    \begin{equation*}
+        \begin{aligned}
+            C^{div}(\omega)_{\ell m}&=\IFT{\frac{\partial}{\partial
+            \delta_{\ell}}\frac{\partial}{\partial
+            \delta_{m}}k_0-\delta_{\{\ell=m\}}\Delta k_0} \\
+            &=\IFT{\frac{\partial}{\partial
+            \delta_{\ell}}\frac{\partial}{\partial
+            \delta_{m}}k_0}-\delta_{\{\ell=m\}}\IFT{\Delta k_0} \\
+            &= (\delta_{\{\ell=m\}} - \omega_{\ell}\omega_{m})
+            \norm{\omega}_2^2 \IFT{k_0},
+        \end{aligned}
+    \end{equation*}
+    since $\IFT{\Delta
+    k_0(\delta)} = \sum_{k=1}^p\IFT{\frac{\partial}{\partial\delta_{k}}k_0} =
+    -\norm{\omega}_2^2\IFT{k_0}$.
+    Hence $A^{div}(\omega)=I\norm{\omega}_2^2-\omega\omega^*$ and
+    $p_{\mu}^{div}(\omega)=\IFT{k_0}(\omega)$. Here,
+    $B^{div}(\omega)=I\norm{\omega}-\omega\omega^*/\norm{\omega}$.
+\end{example}
+\section{Theoretical guaranties for the ORFF approximation error}
+\label{sec:concentration}
+\subsection{Uniform error bound}
+%\input{concentration.tex§}
+We are now interested on measuring how close ORFF approximation $\tilde{K}$ is
+to $K$ given $D$. If $A$ is a real matrix, we denote $\norm{A}_2$ its spectral
+norm, defined as the square root of the largest eigenvalue of $A$. If $F$ is an
+operator-valued function we use the shortcut notation
+$\norm{F}_\infty=\sup_{x}\norm{F(x)}_2$. For $x$ and $z$ in $\mathcal{C}
+\subset \mathbb{R}^d$, we study how, 
+%(x,z)=\tilde{\Phi}(x)^*\tilde{\Phi}(z)$ is to the target kernel 
+\begin{equation}\label{eq:norm_inf}
+    \norm{\tilde{K}-K}_{\infty}
+    =\sup_{x,z\in\mathcal{C}}\norm{\tilde{K}(x,z)-K(x,z)}_2
+\end{equation}
+behaves according to $D$, that is the the maximal approximation error of the
+largest eigenvalue across the domain of $K$. \Cref{fig:approximation_error} A
+empirically shows convergence of three different OVK approximations for $1000$
+data uniformly drawn from the compact $[-1,1]^4$ using an increasing number of
+sample points $D$. The log-log plot shows that all three kernels have the same
+convergence rate, up to a multiplicative factor.
+\par
+To bound the approximation error, we turn to concentration inequalities devoted
+to random matrices \citep{Boucheron}. For decomposable kernel, the error bound
+can be directly obtained as a consequence of the uniform convergence of RFFs in
+the scalar case proved in \cite{Rahimi2007,sutherland2015, sriper2015}; since
+in this case $\norm*{\tilde{K}(x,z)-K(x,z)}_2 = \norm*{A}_2\abs*{\tilde{k}(x,z)
+- k(x,z)}$.
+\begin{figure*}
     \centering
-    \begin{tabular}{|l|l|l|l|}
-      \hline
-      \textbf{Colonne 1} & \textbf{Colonne 2} & \textbf{Colonne 3} &
-      \textbf{Colonne 4} \\ \hline
-      1 & 2 & 3 & 4 \\ 
-      1 & 2 & 3 & 4 \\ 
-      1 & 2 & 3 & 4 \\ 
-      1 & 2 & 3 & 4 \\ \hline
+    \begin{tabular}{p{.445\textwidth}p{.505\textwidth}}
+        \includegraphics[width=0.445\textwidth]{./gfx/approximation_error.tikz}
+        &
+        \includegraphics[width=0.505\textwidth]{./gfx/variance_curl_main.tikz}
+        \\
+        {\bf A.} Empirical Approximation Error versus $D$ for different OVKs. &
+        {\bf B.} Comparison between an empirical bound on the norm of the
+        variance of the curl-free ORFF obtained and the theoretical bound
+        proposed in \cref{pr:variance_bound} versus $D$.
     \end{tabular}
-    \caption{Une grande table}
-    \label{tab:tab}
-  \end{table*}
-\end{SaveVerbatim}
-
-
-\begin{figure*}[t]
-  \centering
-  \UseVerbatim[frame=single]{codefigure}
-  \caption{Un exemple de code sur deux colonnes.}
-  \label{fig:code}
+    \caption{Empirical approximation error and bounds on the norm of the
+    variance of $\tilde{K}$ \label{fig:approximation_error}}
 \end{figure*}
-Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-bla bla bla bla bla bla bla bla bla bla
+This theorem and its proof are presented in \cref{sec:dec-bound} of the
+supplementary material. More interestingly, we propose a new bound for Operator
+Random Fourier Feature approximation in the general case. It relies on two main
+ideas: (i) Matrix-Bernstein concentration inequality for random matrices need
+to be used instead of concentration inequality for scalar random variables,
+(ii) a general theorem valid for random matrices with bounded norms (case for
+decomposable kernel ORFF approximation) as well as unbounded norms (curl and
+divergence-free kernels) that behave as subexponential random variables. Before
+introducing the new theorem, we give the definition of the Orlicz norm which
+gives a proxy-bound on the norm of subexponential random variables.
+\begin{definition}[Orlicz norm \citep{van1996weak}].
+    Let $\psi:\mathbb{R}_+\to\mathbb{R}_+$ be a non-decreasing convex function
+    with $\psi(0)=0$. For a random variable $X$ on a measured space
+    $(\Omega,\mathcal{T}(\Omega),\mu)$, $ \norm{X}_{\psi} := \inf \left\{ C > 0
+    \,\, \middle| \,\, \expectation[\psi\left( \abs{X}/C \right)]\le 1
+    \right\}$.
+\end{definition}
+Here, the function $\psi$ is chosen as $\psi(u)=\psi_{\alpha}(u)$ where
+$\psi_{\alpha}(u):= e^{u^{\alpha}}-1$. When $\alpha=1$, a random variable with
+finite Orlicz norm is called a \emph{subexponential variable} because its tails
+decrease at an exponential rate. Let X be a random matrix of size $p\times p$.
+We call \emph{variance} of $X$ and use the notation
+$\variance[X]=\expectation\left[X-\expectation[X]\right]^2$. With this
+convention, $\variance[X]_{\ell m}=\sum_{r=1}^p\covariancenomu{X_{\ell r},
+X_{rm}}$.
+\begin{theorem}
+    \label{pr:orff_concentration}
+    Assume $K$ is a shift-invariant $\mathbb{R}^p$-Mercer kernel on
+    $\mathcal{C}$, a compact subset of $\mathbb{R}^d$ of diameter
+    $\abs{\mathcal{C}}$. Let $\tilde{K}$ be the ORFF approximation of $K$
+    depending on $D$ (as defined in \cref{eq:kernel_approx}), $K_0$ be the
+    kernel signature of $K$ and $\density(\cdot)A(\cdot)$ be the inverse
+    Fourier transform of the kernel's signature (in the sense of
+    \cref{pr:inverse_ovk_Fourier_decomposition}). Let us define the constants
+    $b$, $\sigma_p^2$, $m \in\mathbb{R}_+$ as $b = D
+    \norm{\variance_\mu\left[\tilde{K} \right]}_{\infty}$ and $\sigma_p^2 =
+    \expectation_{\mu}\left[\norm{\omega}_2^2\norm{A(\omega)}_2^2\right]$ and
+    $m = 4\left(\norm{\norm{A(\omega)}_2 }_{\psi_{1}}+\norm{K}_\infty\right)$
+    where $\omega \sim \mu$, then for all $\epsilon$ in $\mathbb{R}_+$,
+    \begin{equation*}
+        \begin{aligned}
+            \probability \Big\{ &\norm{\tilde{K}-K}_\infty \ge \epsilon
+            \Big\} \le C_{d,p} \left( \frac{\sigma_p
+            \abs{\mathcal{C}}}{\epsilon} \right)^{\frac{2}{1+2/d}} \\
+            &\begin{cases}
+                \exp\left(-\frac{\epsilon^2D}{8 (d+2) \left(b +
+                \frac{\epsilon\bar{u}}{6}\right)} \right) & \text{if}\enskip
+                \epsilon\bar{u}\le 2(e-1)b \\ \exp\left( -\frac{\epsilon
+                D}{(d+2)(e-1)\bar{u}} \right) & \text{otherwise},
+            \end{cases}
+        \end{aligned}
+    \end{equation*}
+    where $\bar{u} = 2m\log\left( 2^{\frac{3}{2}}
+    \left(\frac{m}{b}\right)^2\right)$ and $ C_{d,p} =
+    p\left(\left(\frac{d}{2}\right)^{\frac{-d}{d+2}} +
+    \left(\frac{d}{2}\right)^{\frac{2}{d+2}}\right)2^{\frac{6d+2}{d+2}}$.
+\end{theorem}
+A complete comprehensive proof of
+\ref{pr:orff_concentration} is given in \cref{subsec:concentration_proof} of
+the supplementary material.
+%\begin{sproof}
+    %In the following, let $F(\delta)=F(x-z)=\tilde{K}(x,z)-K(x,z)$. As in
+    %\cite{Rahimi2007} let $\mathcal{D}_{\mathcal{C}}=\left\{ x-z \middle|
+    %x,z\in\mathcal{C} \right\}$ with diameter at most $2l$ where $l$ is the
+    %diameter of $\mathcal{C}$. Since $\mathcal{C}$ is supposed compact, so is
+    %$\mathcal{D}_{\mathcal{C}}$. It is then possible to find an $\epsilon$-net
+    %covering $\mathcal{D}_{\mathcal{C}}$ with at most
+    %$T=(4\abs{\mathcal{C}}/r)^d$ balls of radius $r$. Let us call
+    %$\delta_i,i=1,\ldots,T$ the center of the $i$-th ball, called {\it anchors}
+    %of the $\epsilon$-net. Denote $L_{F}$ the Lipschitz constant of $F$. We
+    %introduce the following lemma proved in the supplements:
+    %\begin{lemma}
+        %If (H1): $L_{F}\le\frac{\epsilon}{2r}$ and (H2)
+        %$\norm{F(\delta_i)}_2\le\frac{\epsilon}{2}$, for all $0<i<T$, then
+        %$\forall \delta \in \mathcal{D}_{\mathcal{C}}$, $\norm{F(\delta)}_2
+        %\leq \epsilon$.
+    %\end{lemma}
+    %To apply the lemma, we must check assumptions (H1) and (H2). 
+    %\paragraph{Sketch of proof of (H1).}
+    %We bound the Lipschitz constant by noticing that $F$ is differentiable, so
+    %$L_{F}=\norm{\frac{\partial F}{\partial \delta}(\delta^*)}_2$ where
+    %$\delta^*=\argmax_{\delta\in\mathcal{D}_{\mathcal{C}}}\norm{\frac{\partial
+    %F}{\partial \delta}(\delta)}_2$. Using Jensen's inequality and applying
+    %Markov's inequality yields
+    %\begin{equation}
+        %\probability \left\{ L_{F} \ge \frac{\epsilon}{2r} \right\} =
+        %\probability \left\{ L_{F}^2 \ge \left(\frac{\epsilon}{2r}\right)^2
+        %\right\} \le
+        %\expectation_{\mu}\left[\norm{\omega}_2^2\norm{A(\omega)}_2^2\right] 
+        %\left(\frac{2r}{\epsilon}
+        %\right)^2.
+        %\label{eq:Lipschitz_bound_sproof}
+    %\end{equation}
+    %We set
+    %$\sigma_p^2 =
+    %\expectation_{\mu}\left[\norm{\omega}_2^2\norm{A(\omega)}_2^2\right]$
+    %and suppose its existence.
+    %\paragraph{Sketch of proof of (H2).}
+    %To obtain a bound on the anchors we apply \cite[theorem
+    %4]{Koltchinskii2013remark}. We suppose that the two constants $b=
+    %\sup_{\delta\in\mathcal{D}_\mathcal{C}}D\norm{\variance_\mu \left[
+    %\tilde{K}_0(\delta) \right]}_2$ and $\bar{u}=\log \left(
+    %2\left(\frac{m}{b}\right)^2+1\right)$, where
+    %$m=4\left(\norm{\norm{A(\omega)}_2 }_{\psi_{1}}+\sup_{\delta\in
+    %\mathcal{D}_\mathcal{C}}\norm{K_0(\delta)}_2\right)$ and $\omega \sim \mu$,
+    %exists. Then,
+    %\begin{equation}
+        %\forall i=1,\hdots, T, \enskip \probability\left\{ \norm{F(\delta_i)}_2
+        %\ge \epsilon \right\} \le 2p
+        %\begin{cases}
+            %\exp\left( -\frac{D\epsilon^2}{4b+2\epsilon\bar{u}/3}\right) &
+            %\text{if $\epsilon\bar{u}\le2(e-1)b$} \\ \exp\left(
+            %-\frac{D\epsilon}{(e-1)\bar{u}} \right) & \text{otherwise.}
+        %\end{cases}
+        %\label{eq:anchor_bound_sproof}
+    %\end{equation}
+    %\paragraph{Combining (H1) and (H2).}
+    %Now applying the lemma and taking the union bound over the centers of the
+    %$\epsilon$-net yields $\probability \left\{
+    %\sup_{\delta\in\mathcal{D}_{\mathcal{C}}} \norm{F(\delta)}_2 \le \epsilon
+    %\right\} \ge 1 - \kappa_1 r^{-d} - \kappa_2 r^2$, with
+    %$\kappa_2=4\sigma_p^2\epsilon^{-2}\quad\text{and}\quad \kappa_1 = 2p(4
+    %\abs{\mathcal{C}})^d\begin{cases} \exp\left( -\frac{\epsilon^2
+    %D}{16\left(b+\frac{\epsilon}{6}\bar{u}\right)}\right) & \text{if}\enskip
+    %\epsilon\bar{u}\le 2(e-1)b \\\exp\left( -\frac{\epsilon D}{2(e-1)\bar{u}}
+    %\right) & \text{otherwise}\end{cases}$. We choose $r$ such that
+    %$d\kappa_1r^{-d-1}-2\kappa_2r=0$, i.e.
+    %$r=\left(\frac{d\kappa_1}{2\kappa_2}\right)^{\frac{1}{d+2}}$.  The bound
+    %becomes
+    %\begin{equation*}
+        %\begin{aligned}
+            %\probability \left\{ \sup_{\delta\in\mathcal{D}_{\mathcal{C}}}
+            %\norm{F(\delta)}\textbf{} \ge \epsilon \right\} &\le p C'_d
+            %2^{\frac{6d+2}{d+2}}\left( \frac{\sigma_p
+            %\abs{\mathcal{C}}}{\epsilon} \right)^{\frac{2}{1+2/d}} 
+            %\begin{cases} 
+                %\exp\left(
+                %-\frac{\epsilon^2}{8(d+2)\left(b +
+                %\frac{\epsilon}{6}\bar{u}\right)}\right)
+                %& \text{if}\enskip \epsilon\bar{u}\le 2(e-1)b \\ \exp\left(
+                %-\frac{\epsilon}{(d+2)(e-1)\bar{u}} \right) & \text{otherwise}. 
+            %\end{cases}
+        %\end{aligned}
+    %\end{equation*}
+    %where $C'_d=\left(\left(\frac{d}{2}\right)^{\frac{-d}{d+2}} +
+    %\left(\frac{d}{2}\right)^{\frac{2}{d+2}}\right)$.  Conclude by taking
+    %$C_{d,p}=pC'_d 2^{\frac{6d+2}{d+2}}$.
+%\end{sproof}
 
+\subsection{Variance of the ORFF approximation}
+We now provide a bound on the norm of the variance of $\tilde{K}$, required to
+apply \cref{pr:orff_concentration}.
+\begin{proposition}[Bounding the \emph{variance} of $\tilde{K}$]
+    \label{pr:variance_bound}
+    Let $K$ be a shift-invariant $\mathbb{R}^p$-Mercer kernel on $\mathcal{C}$,
+    a compact subset of $\mathbb{R}^d$, $\tilde{K}$ be the ORFF approximation
+    of $K$ (as defined in \cref{eq:kernel_approx}) and
+    $\mathcal{D}_{\mathcal{C}}=\{x-z \mid x, z\in\mathcal{C} \}$. Then
+    \begin{equation*}
+        \begin{aligned}
+            \forall \delta & \in\mathcal{D}_{\mathcal{C}}, \enskip
+            \norm{\variance_\mu \left[ \tilde{K}_0(\delta) \right]}_2 \\ & \le
+            \frac{1}{2D} \norm{(K_0(2
+            \delta)+K_0(0))\expectation_\mu[A(\omega)] - 2K_0(\delta)^2}_2 \\
+            &+ \frac{1}{D}\norm{\variance_{\mu}[A(\omega)]}_{2}
+        \end{aligned}
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    It relies on the i.i.d. property of the random vectors $\omega_j$ and
+    trigonometric identities (see the proof in \cref{sec:variance_bound} of the
+    supplementary material).
+\end{proof}
 
+\subsection{Application on decomposable, curl and div-free OVKs}
+Now we compute upper bounds on the norm of the variance and Orlicz norm of the three ORFFs we took as examples.
+\paragraph{Decomposable kernel:}
+notice that in the case of the Gaussian decomposable kernel, i.e.
+$A(\omega)=A$, $K_0(\delta)= Ak_0(\delta)$, $k_0(\delta) \geq 0$ and
+$k_0(\delta)=1$, then we have $D\norm{\variance_\mu \left[ \tilde{K}_0(\delta)
+\right]}_2\leq (1+k_0(2\delta))\norm{A}_2/2 + k_0(\delta)^2$.
+\paragraph{Curl-free and div-free kernels:} recall that in this case $p=d$. For
+the (Gaussian) curl-free kernel, $A(\omega)=\omega\omega^*$ where
+$\omega\in\mathbb{R}^d\sim\mathcal{N}(0, \sigma^{-2}I_d)$ thus
+$\expectation_\mu [A(\omega)] = I_d/\sigma^2$ and
+$\variance_{\mu}[A(\omega)]=(d+1)I_d/\sigma^4$. Hence,
+\begin{equation*}
+    \begin{aligned}
+        D\norm{\variance_\mu \left[ \tilde{K}_0(\delta) \right]}_2 & \leq
+        \frac{1}{2}\norm{\frac{1}{\sigma^2}K_0(2\delta)-2 K_0(\delta)^2}_2 \\
+        & + \frac{(d+1)}{\sigma^4}.
+    \end{aligned}
+\end{equation*}
+This bound is illustrated by \cref{fig:approximation_error} B, for a given
+datapoint. Eventually for the Gaussian divergence-free kernel,
+$A(\omega)=I\norm{\omega}_2^2-\omega\omega^*$, thus $\expectation_\mu
+[A(\omega)] = I_d(d-1)/\sigma^2$ and $
+\variance_{\mu}[A(\omega)]=d(4d-3)I_d/\sigma^4$. Hence,
+\begin{equation*}
+    \begin{aligned}
+        D\norm{\variance_\mu \left[ \tilde{K}_0(\delta) \right]}_2 \leq
+        & \frac{1}{2}\norm{\frac{(d-1)}{\sigma^2}K_0(2\delta)-2K_0(\delta)^2}_2
+        \\ &+ \frac{d(4d-3)}{\sigma^4}.
+    \end{aligned}
+\end{equation*}
+Eventually, we ensure that the random variable $\norm{A(\omega)}$ has a finite
+Orlicz norm with $\psi=\psi_1$ in these three cases.
+\paragraph{Computing the Orlicz norm:}
+For a random variable with strictly monotonic moment generating function (MGF),
+one can characterize its inverse $\psi_1$ Orlicz norm by taking the functional
+inverse of the MGF evaluated at 2 (see \cref{lm:orlicz_mgf} of the
+supplementary material).  In other words
+$\norm{X}_{\psi_1}^{-1}=\MGF(x)^{-1}_X(2)$.  For the Gaussian curl-free and
+divergence-free kernel,
+$\norm{A^{div}(\omega)}_2=\norm{A^{curl}(\omega)}_2=\norm{\omega}_2^2$, where
+$\omega\sim\mathcal{N}(0,I_d/\sigma^2)$, hence $\norm{A(\omega)}_2\sim
+\Gamma(p/2,2/\sigma^2)$. The MGF of this gamma distribution is
+$\MGF(x)(t)=(1-2t/\sigma^2)^{-(p/2)}$. Eventually
+\begin{equation*}
+    \norm{\norm{A^{div}(\omega)}_2}_{\psi_1}^{-1} =
+    \norm{\norm{A^{curl}(\omega)}_2}_{\psi_1}^{-1}=\frac{\sigma^2}{2}\left(1 -
+    4^{-\frac{1}{p}}\right).
+\end{equation*}
+\section{Learning with ORFF}
+\label{sec:learning_with_ORFF} While theoretically relevant, the approximation
+error bounds are too loose to be used to find a safe value for $D$. In the
+following, we choose appropriate learning algorithms to use ORFF in
+vector-valued regression in order to study the empirical behavior of these
+methods. Code implementing ORFF is available at
+\url{https://github.com/operalib/operalib/tree/ORFF} in the branch ORFF of
+Operalib, a framework for OVK learning.
+\subsection{Penalized regression with ORFF}
+Once we have an approximated feature map, we can use it to provide a feature
+matrix of size $p'D \times p$ with matrix $B(\omega)$ of size $p \times p'$
+such that $A(\omega)=B(\omega)B(\omega)^*$. A function $f \in \mathcal{H}_K$ is
+then approximated by a linear model
+$\tilde{f}(x)=\tilde{\Phi}(x)^*\theta,\enskip\text{where}\enskip\theta \in
+\mathbb{R}^{p'D}$. Let $\mathcal{S} = \{(x_i,y_i) \in \mathbb{R}^d \times
+\mathbb{R}^p, i=1, \ldots, N\}$ be a collection of i.i.d training samples.
+Given a local loss function $L: \mathcal{S}\to \mathbb{R}^+$ and a $\ell_2$
+penalty, we minimize
+\begin{equation}
+    \label{eq:opt_ridge}
+    \mathcal{L}(\theta)=\frac{1}{N}\sum_{i=1}^N
+    L\left(\tilde{\Phi}(x_i)^*\theta,y_i\right)+\lambda\norm{\theta}_2^2,
+\end{equation}
+instead of minimizing $\mathcal{L}(f)=\frac{1}{N}\sum_{i=1}^N
+L(f(x_i),y_i)+\lambda\norm{f}^2_{\mathcal{H}_K}$. To find a minimizer of the
+optimization problem \cref{eq:opt_ridge} many optimization algorithms are
+available. For instance, in a large-scale context, a stochastic gradient
+descent algorithm would be suitable: we can adapt the algorithm to the kind of
+kernel/problematic. We investigate two optimization algorithms: a Stein
+equation solver appropriate for decomposable kernels and a (stochastic)
+gradient descent for non-decomposable kernels (e.g. the curl-free and div-free
+kernels).
+\paragraph{Closed form for the decomposable kernel:}
+for the real decomposable kernel $K_0(\delta)=k(\delta)A$ when
+$L(y,y')=\norm{y-y'}_2^2$ (Kernel Ridge regression in $\mathcal{H}_K$), the
+learning problem described in \cref{eq:opt_ridge} can be re-written in terms of
+matrices to find the unique minimizer $\Theta_*$, where
+$\text{vec}(\Theta)=\theta$ such that $\theta$ is a $p'D$ vector and $\Theta$ a
+$p'\times D$ matrix.  We use the notation $X=\vect_{i=1}^N x_i$. If
+$\tilde{\phi}$ is a scalar feature map ($\tilde{\phi}(X)=\vect_{i=1}^N
+\tilde{\phi}(x_i)$ is a matrix of size $D\times N$) for the scalar kernel
+$k_0$. Let $\norm{.}_F$ be the Frobenius norm. Then
+\begin{equation}
+    \tilde{\Phi}(X)^*\theta=(\tilde{\phi}(X)^*\otimes
+    B)\theta=B\Theta\tilde{\phi}(X) 
+\end{equation}
+and
+\begin{equation}
+    \theta_* = \argmin_{\Theta\in\mathbb{R}^{p'\times D}}\norm{B\Theta
+    \tilde{\phi}(X) -Y}_F^2+\lambda\norm{\Theta}_F^2.
+    \label{eq:stein}
+\end{equation}
+This is a convex optimization problem and a sufficient condition is
+$\tilde{\phi}(X)\tilde{\phi}(X)^*\Theta_* B^*B - \tilde{\phi}(X)Y^*B +
+\lambda\Theta_* = 0$, which is a Stein equation.
+\paragraph{Gradient computation for the general case.}
+When it is not possible or desirable to use Stein's equations solver one can
+apply a (stochastic) gradient descent algorithm. The gradient computation for
+and $\ell_2$-loss applied to ORFF model is briefly recalled in
+\cref{subsec:implementation_detail} of the supplementary material.
+\subsection{Numerical illustration}
+We present numerical experiments to illustrate and complete the theoretical
+contribution with bounded and unbounded ORFFs. 
+\begin{figure*}[htb]
+    \centering
+    \begin{tabular}{cc}
+        \includegraphics[width=0.425\textwidth]{./gfx/learning_accuracy_MNIST.tikz}
+        &
+        \includegraphics[width=0.525\textwidth]{./gfx/learning_time_MNIST.tikz}
+    \end{tabular}
+    \caption[Prediction Error in percent on the MNIST dataset versus $D$, the
+    number of Fourier features]{Empirical comparison of ORFF and OVK regression
+    on MNIST dataset and empirical behavior of ORFF regression versus $D$ and
+    $N$. \label{fig:learning_accuracy}}
+\end{figure*}
+\begin{figure*}[htb]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \input{./gfx/Curl_ORFFvsOVK.pgf}
+    }
+    \caption{Empirical comparison between curl-free ORFF, curl-free OVK,
+    independent ORFF, independent OVK on a synthetic vector field regression
+    task. \label{fig:curl_experiment}}%
+\end{figure*}
+\paragraph{Datasets:}
+the first considered is the handwritten character recognition dataset,
+MNIST\footnote{Available at \url{http://yann.lecun.com/exdb/mnist}}.  A
+training (resp. test) set of $12000$ (resp. $10000$) images were selected. The
+inputs are images represented as a vector $x_i\in[0,255]^{784}$ and the targets
+are integers between $0$ and $9$. We scale the inputs such that they take
+values in $[-1,1]^{784}$. We binarize the targets with a one-hot encoder. To
+predict classes, we use simplex coding method presented in
+\cite{mroueh2012multiclass}. The intuition behind simplex coding is to project
+the binarized labels of dimension $p$ onto the most separated vectors on the
+hypersphere of dimension $p-1$. For ORFF we encode this projection in the
+matrix $B$ of the decomposable kernel $K_0(\delta)=B B^* k_0(\delta)$ where
+$k_0$ is a Gaussian kernel. The matrix $B$ is computed via the recursion
+\begin{equation*}
+    B_{p+1}=
+    \begin{pmatrix} 
+        1 & u^T \\
+        0_{p-1} & \sqrt{1-p^{-2}}B_p
+    \end{pmatrix},
+    \enskip B_2 = \begin{pmatrix}1 & -1 \end{pmatrix},
+\end{equation*}
+where $u=\begin{pmatrix} -p^{-2} & \hdots & -p^{-2}
+\end{pmatrix}^T\in\mathbb{R}^{p-1}$ and $0_{p-1} = \begin{pmatrix} 0 & \hdots &
+0 \end{pmatrix}^T \in\mathbb{R}^{p-1}$. For OVK we project the binarized
+targets on the simplex as a pre-processing step, before learning with the
+kernel $K_0(\delta)=I_p k_0(\delta)$, where $k_0$ is a also Gaussian kernel.
+The {\it second dataset} is a simulated 5D-vector field with structure. We
+generate a scalar field as a random function $f:[-1,1]^5\to\mathbb{R}$, where
+$f(x)=\tilde{\phi}(x)^T\theta$ where $\theta$ is a random normal matrix,
+$\tilde{\phi}$ is a scalar Gaussian RFF with bandwidth $\sigma=0.4$. The input
+data $x$ are generated from a uniform probability distribution. We take the
+gradient of $f$ to generate the 5D-curl-free vector-field.  We also report
+additional results on a {\it third dataset} with $10^5$ data from
+$\mathbb{R}^{20}\to\mathbb{R}^4$ used in \cite{audiffren2013online}, in
+\cref{sec:more_simulation} of the supplements.
+\paragraph{Performance of ORFF regression:} we trained both ORFF and OVK models
+on MNIST dataset with a decomposable Gaussian kernel with signature
+$K_0(\delta)=\exp(-\norm{\delta}/\sigma^2)A$.  To find a solution of the
+optimization problem described in \cref{eq:stein}, we use off-the-shelf
+solver\footnote{Available at
+\url{http://ta.twi.tudelft.nl/nw/users/gijzen/IDR.html}} able to handle Stein's
+equation. For both methods we choose $\sigma=20$ and use a $2$-fold cross
+validation on the training set to select the optimal $\lambda$. First,
+\cref{fig:learning_accuracy} compares the running time between OVK and ORFF
+models using $D=1000$ Fourier features against the number of data\-points $N$.
+The log-log plot shows ORFF scaling better than the OVK w.r.t the number of
+points.  Second, \cref{fig:learning_accuracy} shows the test prediction error
+versus the number of ORFFs $D$, when using $N=1000$ training points. As
+expected, the ORFF model converges toward the OVK model when the number of
+features increases.  We perform a similar experiment on the second dataset
+(5D-vector field with structure). We use a Gaussian curl-free kernel with
+bandwidth equal to the median of the pairwise distances and tune the
+hyperparameter $\lambda$ on a grid. We optimize \cref{eq:opt_ridge} using
+Scipy's L-BFGS-B solver\footnote{Available at
+\url{http://docs.scipy.org/doc/scipy/reference/optimize.html}}.
+\Cref{fig:curl_experiment} (bottom row) reports the R2 score on the test set
+versus the number of curl-ORFF $D$ with a comparison with curl-OVK. In this
+experiment, we see that curl-OFF can even be better than curl-OVK, suggesting
+that ORFF might play an additional regularizing role. It also shows the
+computation time of curl-ORFF and curl-OVK. We see that OVK regression does not
+scale with large datasets, while ORFF regression does. When $N>10^4$, OVK
+regression exceeds memory capacity.
+\paragraph{Structured prediction vs Independent (RFF) prediction:}
+on the second dataset, \cref{fig:curl_experiment} (top row) compares R2 score
+and time of ORFF regression using the trivial identity decomposable kernel,
+e.g. independent RFFs, to curl-free ORFF regression. Curl-free ORFF outperforms
+independent RFFs, as expected, since the dataset involves structured outputs.
 
-\section{La bibliographie}
-\label{sec:la-bibliographie}
+\section{Conclusion}
+\label{sec:conclusion}
+%\input{conclusion.tex}
+We introduced ORFF, a general and versatile framework for shift-invariant OVK
+approximation. We proved the uniform convergence of the approximation error for
+bounded and unbounded ORFFs. The complexity in time of these approximations
+together with the linear learning algorithm make this implementation scalable
+with the data size and thus appealing compared to OVK regression as shown in
+numerical experiments. Further work concerns generalization bounds and
+consistency for ORFF-regression. Finally this work opens the door to building
+deeper architectures by stacking vector-valued functions while keeping a kernel
+view for large datasets.
 
-Rien à dire. C'est comme par défaut. Par exemple~\cite{papier1} et~\cite{papier2}.
+\paragraph{Acknowledgement:}
+R. Brault was funded by  University of \'Evry (PhD grant numbered 76391). The
+authors are grateful to Maxime Sangnier for his relevant comments.
 
-Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-bla bla bla bla bla bla bla bla bla bla
-
-\section{Sans \LaTeX}
-\label{sec:sans-latex}
-
-Si vous n'utilisez pas \LaTeX, vous pouvez reprendre les dimensions
-données au début de ce document et essayer de trouver une fonte
-lisible. 
-
+\scriptsize
 \bibliography{cap2017}
 
 \end{document}

@@ -1,0 +1,113 @@
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator*{\sign}{sign}
+\DeclareMathOperator{\lspan}{\overline{span}\;}
+\DeclareMathOperator{\vect}{\bigoplus}
+\DeclareMathOperator*{\Vect}{\bigoplus}
+\newcommand{\ima}{\text{im}\;}
+\newcommand{\Ima}{\text{Im}\;}
+\newcommand{\Ker}{\text{Ker}\;}
+
+
+% Florence's notations.
+\def\expectation{{\mathbb{E}}}
+\def\variance{{\mathbb{V}}}
+\def\probability{{\mathbb{P}}}
+%\def\covari{{\math{Cov}}
+
+% Romain's notations.
+% \def\expectation{{\bf\text{E}}}
+% \def\variance{{\bf\text{Var}}}
+% \def\probability{{\bf\text{Pr}}}
+
+\def\param{\theta}
+\newcommand{\minimiser}{\hat\theta}
+\newcommand{\parameter}{\theta}
+\newcommand{\idim}{d}
+\newcommand{\odim}{p}
+\newcommand{\FT}[1]{\mathcal{F}\left[#1\right]}
+\newcommand{\IFT}[1]{\mathcal{F}^{-1}\left[#1\right]}
+\newcommand{\MGF}{\text{MGF}}
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+\DeclarePairedDelimiter\inner{\langle}{\rangle}
+\DeclarePairedDelimiter\pairing{(}{)}
+\DeclarePairedDelimiter\covariance{\text{Cov}_\mu[}{]}
+\DeclarePairedDelimiter\covariancenomu{\text{Cov}[}{]}
+\newcommand\dual[1]{\hat{#1}}
+% \newcommand\dual[1]{#1}
+\newcommand\conj[1]{\overline{#1}}
+\newcommand\inrange[2]{\in {\left\{#1, \ldots, #2\right\}}}
+% \newcommand\inrange[2]{\llbracket#1, #2\rrbracket}
+
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+%% functions and operators
+\def\density{p_{\mu}}
+\def\measure{\mu}
+\def\adjoint{*}
+\def\sech{\text{sech}}
+
+%% Bold letter
+\def\bfeps{\boldsymbol{\epsilon}}
+\def\bfdelta{\boldsymbol{\delta}}
+\def\bfDelta{\boldsymbol{\Delta}}
+\def\bfa{{\mathbf a}}
+\def\bfb{{\mathbf b}}
+\def\bfc{{\mathbf c}}
+\def\bft{{\mathbf t}}
+\def\bfu{{\mathbf u}}
+\def\bfv{{\mathbf v}}
+\def\bfx{{\mathbf x}}
+\def\bfy{{\mathbf y}}
+\def\bfz{{\mathbf z}}
+\def\bfB{{\mathbf B}}
+\def\bfK{{\mathbf K}}
+\def\bfX{{\mathbf X}}
+
+%% Mathcalletter
+\def\bmS{\mathcal{S}}
+\def\bmB{\mathcal{B}}
+\def\bmX{\mathcal{X}}
+\def\bmY{\mathcal{Y}}
+\def\bmC{\mathcal{C}}
+\def\bmD{\mathcal{D}}
+\def\bmL{\mathcal{L}}
+\def\bmH{\mathcal{H}}
+\def\bmF{\mathcal{F}}
+\def\bmM{\mathcal{M}}
+\def\bmN{\mathcal{N}}
+\def\mRp{\mathbb{R}^p}
+\def\mRd{\mathbb{R}^d}
+
+% \newenvironment{proof}{\par\noindent{\bfseries\upshape
+%   Proof.\ }}{\hfill\qed\\[2mm]}
+% \newenvironment{sproof}{\par\noindent{\bfseries\upshape
+%   Sketch of proof.\ }}{\hfill\qed\\[2mm]}
+
+\makeatletter
+\renewtheoremstyle{plain}% Adds automatic line break, if heading is too long
+{\item{\theorem@headerfont ##1\ ##2\theorem@separator}~}
+{\item{\theorem@headerfont ##1\ ##2\ (##3)\theorem@separator}~}
+\makeatother
+
+\newtheorem{example}{Example}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem*{proof}{Proof}
+\newtheorem*{sproof}{Sketch of Proof}
+

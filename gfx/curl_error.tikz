@@ -1,0 +1,156 @@
+\begin{tikzpicture}[x=1mm,y=-1mm]
+\definecolor{mycolorFF0000}{rgb}{1,0,0}
+\definecolor{mycolor0000FF}{rgb}{0,0,1}
+\definecolor{mycolor362A35}{rgb}{0.21,0.16,0.21}
+\definecolor{mycolorD0D0E0}{rgb}{0.82,0.82,0.88}
+\definecolor{mycolor000000}{rgb}{0,0,0}
+\definecolor{mycolor564A55}{rgb}{0.34,0.29,0.33}
+\definecolor{mycolor000000}{rgb}{0,0,0}
+\definecolor{mycolor6C606B}{rgb}{0.42,0.38,0.42}
+\definecolor{mycolor4C404B}{rgb}{0.3,0.25,0.29}
+\definecolor{mycolorFFFFFF}{rgb}{1,1,1}
+\begin{scope}
+\begin{scope}
+% \fontspec{PT Sans}
+\draw (47.88,64.59) node [text=mycolor564A55,draw=mycolor000000,draw opacity=0,rotate around={-0: (0,1.81)},inner sep=0.0]{\fontsize{3.88mm}{4.66mm}\selectfont $\text{D}$};
+\end{scope}
+\begin{scope}
+% \fontspec{PT Sans Caption}
+\draw (22.75,56.58) node [text=mycolor6C606B,rotate around={-0: (25.13,2.01)},inner sep=0.0]{\fontsize{2.82mm}{3.39mm}\selectfont $\text{10}^{\text{1}}\text{}$};
+\draw (39.5,56.58) node [text=mycolor6C606B,rotate around={-0: (8.38,2.01)},inner sep=0.0]{\fontsize{2.82mm}{3.39mm}\selectfont $\text{10}^{\text{2}}\text{}$};
+\draw (56.26,56.58) node [text=mycolor6C606B,rotate around={-0: (-8.38,2.01)},inner sep=0.0]{\fontsize{2.82mm}{3.39mm}\selectfont $\text{10}^{\text{3}}\text{}$};
+\draw (73.01,56.58) node [text=mycolor6C606B,rotate around={-0: (-25.13,2.01)},inner sep=0.0]{\fontsize{2.82mm}{3.39mm}\selectfont $\text{10}^{\text{4}}\text{}$};
+\end{scope}
+\begin{scope}
+\begin{scope}
+% \fontspec{PT Sans}
+\draw (78.83,30.29) node [text=mycolor4C404B,rotate around={-0: (6.98,0)},right,inner sep=0.0]{\fontsize{2.82mm}{3.39mm}\selectfont $\text{Curl-Free}$};
+\draw (78.83,33.92) node [text=mycolor4C404B,rotate around={-0: (6.98,-3.63)},right,inner sep=0.0]{\fontsize{2.82mm}{3.39mm}\selectfont $\text{Independant RFF}$};
+\end{scope}
+\begin{scope}
+\path [fill=mycolorFF0000,draw=mycolor000000,draw opacity=0] (76.01,29.38) rectangle +(1.81,1.81);
+\path [fill=mycolor0000FF,draw=mycolor000000,draw opacity=0] (76.01,33.01) rectangle +(1.81,1.81);
+\end{scope}
+\begin{scope}
+% \fontspec{PT Sans}
+\draw (76.01,26.47) node [text=mycolor362A35,draw=mycolor000000,draw opacity=0,rotate around={-0: (10.79,0.19)},right,inner sep=0.0]{\fontsize{3.88mm}{4.66mm}\selectfont $\text{Kernel}$};
+\end{scope}
+\end{scope}
+\begin{scope}
+\clip  (20.75,5) -- (75.01,5) -- (75.01,55.58) -- (20.75,55.58);
+\begin{scope}
+\clip  (20.75,5) -- (75.01,5) -- (75.01,55.58) -- (20.75,55.58);
+\path [fill=mycolor000000,fill opacity=0,draw=mycolor000000,draw opacity=0] (20.75,5) rectangle +(54.27,50.58);
+\end{scope}
+\begin{scope}
+[dash pattern=on 0.5mm off 0.5mm,line width=0.2mm]
+\path [fill=mycolor000000,draw=mycolorD0D0E0]  (20.75,51.68) -- (75.01,51.68);
+\path [fill=mycolor000000,draw=mycolorD0D0E0]  (20.75,32.67) -- (75.01,32.67);
+\path [fill=mycolor000000,draw=mycolorD0D0E0]  (20.75,13.65) -- (75.01,13.65);
+\end{scope}
+\begin{scope}
+[dash pattern=on 0.5mm off 0.5mm,line width=0.2mm]
+\path [fill=mycolor000000,draw=mycolorD0D0E0]  (22.75,5) -- (22.75,55.58);
+\path [fill=mycolor000000,draw=mycolorD0D0E0]  (39.5,5) -- (39.5,55.58);
+\path [fill=mycolor000000,draw=mycolorD0D0E0]  (56.26,5) -- (56.26,55.58);
+\path [fill=mycolor000000,draw=mycolorD0D0E0]  (73.01,5) -- (73.01,55.58);
+\end{scope}
+\begin{scope}
+\begin{scope}
+[line width=0.13mm]
+\path [fill=mycolor0000FF,fill opacity=0.1,draw=mycolor000000,draw opacity=0]  (73.01,49.41) -- (67.43,49.22) -- (61.84,48.86) -- (56.26,47.72) -- (50.67,45.37) -- (45.09,41.62) -- (39.5,32.38) -- (33.92,20.03) -- (28.33,16.3) -- (22.75,12.55) -- (22.75,11.04) -- (28.33,12.81) -- (33.92,16.86) -- (39.5,28.28) -- (45.09,31.75) -- (50.67,43.33) -- (56.26,46.96) -- (61.84,48.11) -- (67.43,48.96) -- (73.01,49.12) -- cycle;
+\end{scope}
+\begin{scope}
+[line width=0.13mm]
+\path [fill=mycolor000000,fill opacity=0,draw=mycolor0000FF]  (22.75,11.76) -- (28.33,14.37) -- (33.92,18.29) -- (39.5,30.08) -- (45.09,35.29) -- (50.67,44.29) -- (56.26,47.33) -- (61.84,48.47) -- (67.43,49.09) -- (73.01,49.27);
+\end{scope}
+\begin{scope}
+[line width=0.13mm]
+\path [fill=mycolorFF0000,fill opacity=0.1,draw=mycolor000000,draw opacity=0]  (73.01,50.9) -- (67.43,50.92) -- (61.84,50.62) -- (56.26,50.95) -- (50.67,49.47) -- (45.09,43.37) -- (39.5,32.21) -- (33.92,21.46) -- (28.33,15.55) -- (22.75,13.08) -- (22.75,11.24) -- (28.33,13.52) -- (33.92,15.27) -- (39.5,24.42) -- (45.09,38.08) -- (50.67,46.96) -- (56.26,49.33) -- (61.84,50.06) -- (67.43,50.18) -- (73.01,50.5) -- cycle;
+\end{scope}
+\begin{scope}
+[line width=0.13mm]
+\path [fill=mycolor000000,fill opacity=0,draw=mycolorFF0000]  (22.75,12.11) -- (28.33,14.47) -- (33.92,17.8) -- (39.5,27.43) -- (45.09,40.31) -- (50.67,48.12) -- (56.26,50.1) -- (61.84,50.34) -- (67.43,50.54) -- (73.01,50.7);
+\end{scope}
+\begin{scope}
+[line width=0.5mm]
+\path [fill=mycolor000000,draw=mycolorFF0000]  (20.75,51.57) -- (75.01,51.57);
+\end{scope}
+\begin{scope}
+[line width=0.5mm]
+\path [fill=mycolor000000,draw=mycolor0000FF]  (20.75,49.93) -- (75.01,49.93);
+\end{scope}
+\begin{scope}
+\begin{scope}
+[line width=0.3mm]
+\path [fill=mycolor0000FF,draw=mycolorFFFFFF] (22.75,11.76) circle [radius=0.09];
+\path [fill=mycolor0000FF,draw=mycolorFFFFFF] (28.33,14.37) circle [radius=0.09];
+\path [fill=mycolor0000FF,draw=mycolorFFFFFF] (33.92,18.29) circle [radius=0.09];
+\path [fill=mycolor0000FF,draw=mycolorFFFFFF] (39.5,30.08) circle [radius=0.09];
+\path [fill=mycolor0000FF,draw=mycolorFFFFFF] (45.09,35.29) circle [radius=0.09];
+\path [fill=mycolor0000FF,draw=mycolorFFFFFF] (50.67,44.29) circle [radius=0.09];
+\path [fill=mycolor0000FF,draw=mycolorFFFFFF] (56.26,47.33) circle [radius=0.09];
+\path [fill=mycolor0000FF,draw=mycolorFFFFFF] (61.84,48.47) circle [radius=0.09];
+\path [fill=mycolor0000FF,draw=mycolorFFFFFF] (67.43,49.09) circle [radius=0.09];
+\path [fill=mycolor0000FF,draw=mycolorFFFFFF] (73.01,49.27) circle [radius=0.09];
+\end{scope}
+\end{scope}
+\begin{scope}
+\begin{scope}
+[line width=0.3mm]
+\path [fill=mycolorFF0000,draw=mycolorFFFFFF] (22.75,12.11) circle [radius=0.09];
+\path [fill=mycolorFF0000,draw=mycolorFFFFFF] (28.33,14.47) circle [radius=0.09];
+\path [fill=mycolorFF0000,draw=mycolorFFFFFF] (33.92,17.8) circle [radius=0.09];
+\path [fill=mycolorFF0000,draw=mycolorFFFFFF] (39.5,27.43) circle [radius=0.09];
+\path [fill=mycolorFF0000,draw=mycolorFFFFFF] (45.09,40.31) circle [radius=0.09];
+\path [fill=mycolorFF0000,draw=mycolorFFFFFF] (50.67,48.12) circle [radius=0.09];
+\path [fill=mycolorFF0000,draw=mycolorFFFFFF] (56.26,50.1) circle [radius=0.09];
+\path [fill=mycolorFF0000,draw=mycolorFFFFFF] (61.84,50.34) circle [radius=0.09];
+\path [fill=mycolorFF0000,draw=mycolorFFFFFF] (67.43,50.54) circle [radius=0.09];
+\path [fill=mycolorFF0000,draw=mycolorFFFFFF] (73.01,50.7) circle [radius=0.09];
+\end{scope}
+\end{scope}
+\end{scope}
+\end{scope}
+\begin{scope}
+% \fontspec{PT Sans Caption}
+\draw (19.74,51.68) node [text=mycolor6C606B,rotate around={-0: (-3.07,-21.39)},left,inner sep=0.0]{\fontsize{2.82mm}{3.39mm}\selectfont $\text{10}^{\text{-4}}\text{}$};
+\draw (19.74,32.67) node [text=mycolor6C606B,rotate around={-0: (-3.07,-2.38)},left,inner sep=0.0]{\fontsize{2.82mm}{3.39mm}\selectfont $\text{10}^{\text{-3}}\text{}$};
+\draw (19.74,13.65) node [text=mycolor6C606B,rotate around={-0: (-3.07,16.64)},left,inner sep=0.0]{\fontsize{2.82mm}{3.39mm}\selectfont $\text{10}^{\text{-2}}\text{}$};
+\end{scope}
+\begin{scope}
+% \fontspec{PT Sans}
+\draw (8.81,28.29) node [text=mycolor564A55,draw=mycolor000000,draw opacity=0,rotate around={90: (0,2)},inner sep=0.0]{\fontsize{3.88mm}{4.66mm}\selectfont $\text{Error (MSE)}$};
+\end{scope}
+\end{scope}
+\end{tikzpicture}
+
+
+% RAW RUN LOG 1, 5 folds
+% mean_err = [[0.0120591557509 0.00133902997416 0.0125810353844 0.00114571988816]
+%     [0.00905522578424 0.00110402599727 0.00916967740604 0.00190716299587];
+% [0.00605162965846 0.00216627061 0.0057021970048 0.00107964526861];
+%     [0.00188498493437 0.000828091743613 0.00136808799011 0.000332307256495];
+%     [0.000396177539046 0.00012274506262 0.000727813801351 0.000389875762973];
+%     [0.000153905492742 2.32168043535e-05 0.000244764810346 2.99982845109e-05];
+%     [0.000121041868716 1.18031890692e-05 0.000169295187686 7.83332428913e-06];
+%     [0.000117604411571 4.00452934589e-06 0.000147379852253 6.64847775774e-06];
+%                         [0.000114728354444 5.14834247845e-06 0.00013677230931 2.13454224228e-06];
+%         [0.000112568705736 2.74320834101e-06 0.00013388971594 2.36851247139e-06]]
+% yhcf = 0.000101268829426
+% yhdec = 0.000123507280762
+
+
+% RAW RUN LOG 2, 5 folds
+% 0.116726050712
+% 0.0114381539887 0.0019815011715 0.0122423827601 0.000780571846635
+% 0.00922552896592 0.00152372926518 0.00785853403298 0.00192669811658
+% 0.00450229145372 0.000960810174884 0.00518120344563 0.00205233243161
+% 0.00176481843228 0.000531513513339 0.00154461402441 0.000435369014596
+% 0.000401084517807 0.000206348997032 0.000563318849189 0.00014817218616
+% 0.000174540737513 3.77647000288e-05 0.000231745481109 1.77243562457e-05
+% 0.000123043538011 1.69935694718e-05 0.000171137059513 1.77070085072e-05
+% 0.000115967581867 2.02023000702e-06 0.000138833884591 6.32963044084e-06
+% 0.000114310056621 4.27595746276e-06 0.000133951473097 4.93090793059e-06
+% 0.00011631031317 1.91359313885e-06 0.00012940566223 1.54101320477e-06
+% 0.000104140670066 0.000124039941023

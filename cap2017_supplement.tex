@@ -1,0 +1,699 @@
+ %\documentclass[wcp,gray]{jmlr} % test grayscale version
+\documentclass{article}
+% The following packages will be automatically loaded:
+% amsmath, amssymb, natbib, graphicx, url, algorithm2e§
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage[algo2e,ruled,linesnumbered]{algorithm2e}
+
+
+\usepackage[width=17cm,height=22cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{fancyvrb}
+\usepackage{authblk}
+\usepackage{hyperref}
+\usepackage{pythontex}
+
+\usepackage{xr}
+\externaldocument{cap2017}
+
+%\usepackage{rotating}% for sideways figures and tables
+\usepackage{longtable}% for long tables
+% The booktabs package is used by this sample document
+% (it provides \toprule, \midrule and \bottomrule).
+% Remove the next line if you don't require it.
+\usepackage{booktabs}
+\usepackage{wrapfig}
+% The siunitx package is used by this sample document
+% to align numbers in a column by their decimal point.
+% Remove the next line if you don't require it.
+\usepackage[load-configurations=version-1]{siunitx} % newer version
+\usepackage{siunitx}
+\usepackage{natbib}
+
+% \usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{pgf}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.12}
+\usepackage{tikz}
+\usepackage{tikzscale}
+\usepackage{fontspec}
+% \usepackage{proceed2e}
+
+\usepackage{etoolbox}
+\apptocmd{\sloppy}{\hbadness 10000\relax}{}{}
+
+\makeatletter
+ \def\@textbottom{\vskip \z@ \@plus 20pt}
+ \let\@texttop\relax
+\makeatother
+
+\usepackage[titletoc,toc,title]{appendix}
+
+% For figures
+% \usepackage{placeins}
+% \usepackage{floatrow}
+% \usepackage[style=base]{caption}
+
+% For math
+\usepackage{array}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{dsfont}
+\usepackage{cellspace}
+\usepackage{ntheorem}
+\usepackage{cleveref}
+\usepackage{microtype}
+\crefname{algocf}{alg.}{algs.}
+\Crefname{algocf}{Algorithm}{Algorithms}
+
+% Packages hyperref and algorithmic misbehave sometimes. We can fix
+% this with the following command.
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% Definitions of handy macros can go here
+\usepackage[shortlabels]{enumitem}
+\usepackage{commands}
+% \usepackage[1-16,files]{pagesel}
+
+
+% The following command is just for this sample document:
+% \newcommand{\cs}[1]{\texttt{\char`\\#1}}
+
+\bibliographystyle{alpha}
+
+\title{Random Fourier Features For Operator-Valued Kernels}
+
+ % Use \Name{Author Name} to specify the name.
+ % If the surname contains spaces, enclose the surname
+ % in braces, e.g. \Name{John {Smith Jones}} similarly
+ % if the name has a "von" part, e.g \Name{Jane {de Winter}}.
+ % If the first letter in the forenames is a diacritic
+ % enclose the diacritic in braces, e.g. \Name{{\'E}louise Smith}
+
+ % Two authors with the same address
+ % \author{\Name{Author Name1} \Email{abc@sample.com}\and
+ %  \Name{Author Name2} \Email{xyz@sample.com}\\
+ %  \addr Address}
+
+ % Three or more authors with the same address:
+ % \author{\Name{Author Name1} \Email{an1@sample.com}\\
+ %  \Name{Author Name2} \Email{an2@sample.com}\\
+ %  \Name{Author Name3} \Email{an3@sample.com}\\
+ %  \Name{Author Name4} \Email{an4@sample.com}\\
+ %  \Name{Author Name5} \Email{an5@sample.com}\\
+ %  \Name{Author Name6} \Email{an6@sample.com}\\
+ %  \Name{Author Name7} \Email{an7@sample.com}\\
+ %  \Name{Author Name8} \Email{an8@sample.com}\\
+ %  \Name{Author Name9} \Email{an9@sample.com}\\
+ %  \Name{Author Name10} \Email{an10@sample.com}\\
+ %  \Name{Author Name11} \Email{an11@sample.com}\\
+ %  \Name{Author Name12} \Email{an12@sample.com}\\
+ %  \Name{Author Name13} \Email{an13@sample.com}\\
+ %  \Name{Author Name14} \Email{an14@sample.com}\\
+ %  \addr Address}
+
+% pour version finale : 
+%  Authors with different addresses:
+\author[1,2,3]{Romain Brault\thanks{romain.brault@telecom-paristech.fr}}
+\author[2,3]{Florence d'Alch\'e-Buc\thanks{florence.dalche@telecom-paristech.fr}}
+\author[4]{Markus Heinonen\thanks{markus.o.heinonen@aalto.fi}}
+\affil[1]{IBISC, Universit\'e d'\'Evry val d'Essonne}
+\affil[2]{LTCI, CNRS, T\'el\'ecom ParisTech}
+\affil[3]{Universit\'e Paris-Saclay}
+\affil[4]{Department of Information and Computer Science, Aalto University}
+
+
+\renewcommand\Authands{ and }
+\renewcommand\Authand{ and }
+
+%\editors{List of editors' names}
+
+\pdfstringdefDisableCommands{\def\cref#1{#1}}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+\textbf{\large Supplementary Materials}
+\end{center}
+
+\maketitle
+
+%%%%%%%%%% Merge with supplemental materials %%%%%%%%%%
+%%%%%%%%%% Prefix a "S" to all equations, figures, tables and reset the counter %%%%%%%%%%
+\setcounter{section}{0}
+\setcounter{subsection}{0}
+\setcounter{equation}{0}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{page}{1}
+\makeatletter
+\renewcommand\thesection{\Alph{section}}
+\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\bibnumfmt}[1]{[S#1]}
+\renewcommand{\citenumfont}[1]{S#1}
+%%%%%%%%%% Prefix a "S" to all equations, figures, tables and reset the counter %%%%%%%%%%
+
+
+\section{Uniform error bound for decomposable ORFF}
+\cite{Rahimi2007} proved the uniform convergence of Random Fourier Feature (RFF) approximation for a scalar shift invariant kernel.
+\begin{theorem}[Uniform error bound for RFF, \citet{Rahimi2007}]\label{rff-scalar-bound}
+
+Let $\mathcal{C}$ be a compact of subset of $\mathbb{R}^d$ of diameter $\abs{\mathcal{C}}$. Let $k$ a shift invariant kernel, differentiable with a bounded first derivative and $\mu$ its normalized inverse Fourier transform. Let $D$ the dimension of the Fourier feature vectors. Then, for the mapping $\tilde{\phi}$ described in \cref{sec:orff}, we have:
+\begin{equation}
+\probability\left\{\sup_{x,z\in\mathcal{C}}\norm{\tilde{k}(x,z)-k(x,z)}_2\ge \epsilon \right\} \le 2^8\left( \frac{d\sigma \abs{\mathcal{C}}}{\epsilon} \right)^2\exp\left( -\frac{\epsilon^2D}{4(d+2)} \right)
+\end{equation}
+\end{theorem}
+From \cref{rff-scalar-bound}, we deduce the following corollary about the uniform convergence of the ORFF approximation of the decomposable kernel. We recall that: for a given pair $(x,z) \in \mathcal{C}^2$, $\tilde{K}(x,z)= \tilde{\Phi}(x)^* \tilde{\Phi}(z)=A\tilde{k}(x,z)$ and $K_0(x-z)=A E_{\mu}[\tilde{k}(x,z)]$.
+
+\begin{corollary}[Uniform error bound for decomposable ORFF]\label{sec:dec-bound}
+Let $\mathcal{C}$ be a compact of subset of $\mathbb{R}^d$ of diameter $\abs{\mathcal{C}}$. $K_{dec}$ is a decomposable kernel built from a $p \times p$ positive semi-definite matrix $A$ and $k$, a shift invariant and differentiable kernel whose first derivative is bounded. Let $\tilde{k}$ the Random Fourier approximation for the scalar-valued kernel $k$.
+\begin{equation*}
+\probability\left\{\sup_{x,z\in\mathcal{C}}\norm{\tilde{K}(x,z)-K(x,z)}_2\ge \epsilon \right\} \le 2^8\left( \frac{d\sigma \norm{A}_2 \abs{\mathcal{C}}}{\epsilon} \right)^2\exp\left( -\frac{\epsilon^2D}{4\norm{A}_2^2(d+2)} \right)
+\end{equation*}
+\end{corollary}
+\begin{proof}
+The proof directly extends \ref{rff-scalar-bound} given by \cite{Rahimi2007}. Since
+\begin{equation*}
+    \sup_{x,z\in\mathcal{C}}\norm{\tilde{K}(x,z)-K(x,z)}_2 = \sup_{x,z\in\mathcal{C}} \norm{A}_2. \abs{\tilde{k}(x,z)-k(x,z)}
+\end{equation*}
+and then, taking $\epsilon' = \norm{A}_2 \epsilon$ gives the following result for all positive $\epsilon'$:
+\begin{equation*}
+\probability\left\{\sup_{x,z\in\mathcal{C}}\norm{A(\tilde{k}(x,z)-k(x,z))}_2\ge \epsilon' \right\} \le 2^8\left( \frac{d\sigma \norm{A}_2 \abs{\mathcal{C}}}{\epsilon'} \right)^2\exp\left( -\frac{\epsilon'^2D}{4\norm{A}_2^2(d+2)} \right)
+\end{equation*}
+\end{proof}
+Note that a similar corollary could have been obtained from the recent result of \citet{sutherland2015} who refined the bound proposed by \citet{Rahimi2007} by using a Bernstein concentration inequality instead of the Hoeffding inequality.
+
+\section{Proof of \cref{pr:orff_concentration}}.
+\label{subsec:concentration_proof}
+\paragraph{}
+We recall the notations $\delta=x-z$, $\tilde{K}(x,z)=\tilde{\Phi}(x)\tilde{\Phi}(z)$, $\tilde{K}^j(x,z)=\Phi_x(\omega_j)\Phi_z(\omega_j)$ and $K_0(\delta)=K(x,z)$.
+For the sake of simplicity, we use throughout the proof the quantities:
+\begin{eqnarray*}
+F(\delta)&:=&\tilde{K}(x,z)-K(x,z)\\
+F^j(\delta)&:=&(\tilde{K}^j(x,z)-K(x,z))/D
+\end{eqnarray*}
+
+Compared to the scalar case, the proof follows the same scheme as the one described in \citep{Rahimi2007, sutherland2015} but requires to consider matrix norms and appropriate matrix concentration inequality. The main feature of \cref{pr:orff_concentration} is that it covers the case of bounded ORFF as well as unbounded ORFF: in the case of bounded ORFF, a Bernstein inequality for matrix concentration such that the one proved in \cite{Mackey2014} (Corollary 5.2) or the formulation of \cite{Tropp} recalled in \cite{Koltchinskii2013remark} is suitable. However some kernels like the curl and the div-free kernels do not have bounded $\norm{F^j}_2$ but exhibit $F^j$ with subexponential tails. Therefore, we use a Bernstein matrix concentration inequality adapted for random matrices with subexponential norms.
+
+
+
+% \begin{figure*}[ht]
+%   \centering
+%   \begin{tabular}{cc}
+%   \includegraphics[width=0.45\textwidth]{Figures/variance_dec.tikz} & \includegraphics[width=0.45\textwidth]{Figures/variance_curl.tikz}
+%   \end{tabular}
+%   \caption{Upper bound on the variance of the decomposable and curl-free kernel obtained via ORFF. We generated a random point in $[-1,1]^4$ and computed the empirical variance of the estimator (red line). We also plotted the theoretical bound proposed in \cref{pr:ov-rff_variance_bound}.}
+%   \label{fig:variance_error}
+% \end{figure*}
+
+
+\subsection{Epsilon-net}
+Let $\mathcal{D}_{\mathcal{C}}=\left\{ x-z \middle| x,z\in\mathcal{C} \right\}$ with diameter at most $2\abs{\mathcal{C}}$ where $\abs{\mathcal{C}}$ is the diameter of $\mathcal{C}$. Since $\mathcal{C}$ is supposed compact, so is $\mathcal{D}_{\mathcal{C}}$. It is then possible to find an $\epsilon$-net covering $\mathcal{D}_{\mathcal{C}}$ with at most $T=(4\abs{\mathcal{C}}/r)^d$ balls of radius $r$.
+\par
+Let us call $\delta_i,i=1,\ldots,T$ the center of the $i$-th ball, also called anchor of the $\epsilon$-net. Denote $L_{F}$ the Lipschitz constant of $F$. Let $\norm{.}_2$ be the $\ell_2$ norm on $\mathcal{L}(\mathbb{R}^p)$, that is the spectral norm. We introduce the following lemma:
+\begin{lemma}
+$\forall \delta \in \mathcal{D}_{\mathcal{C}}$, if (1): $L_{F}\le\frac{\epsilon}{2r}$ and (2): $\norm{F(\delta_i)}_2\le\frac{\epsilon}{2}$,for all $0<i<T$, then $\norm{F(\delta)}_2 \leq \epsilon$.
+\end{lemma}
+\begin{proof}
+$\norm{F(\delta)}_2=\norm{F(\delta)-F(\delta_i)+F(\delta_i)}_2\le\norm{F(\delta)-F(\delta_i)}_2+\norm{F(\delta_i)}_2$, for all $0<i<T$. Using the Lipschitz continuity of $F$ we have $\norm{F(\delta)-F(\delta_i)}_2\le L_{F}\norm{\delta-\delta_i}_2\le rL_{F}$ hence
+$\norm{F(\delta)}_2 \le rL_{F} + \norm{F(\delta_i)}_2$.
+\end{proof}
+To apply the lemma, we must bound the Lipschitz constant of the matrix-valued function $F$ (condition (1)) and $\norm{F(\delta_i)}_2$, for all $i=1, \ldots, T$ as well (condition (2)).
+\subsection{Regularity condition}
+\label{subsubsec:regularity}
+We first establish that $\frac{\partial}{\partial \delta}\expectation \tilde{K}(\delta) = \expectation \frac{\partial}{\partial \delta}\tilde{K}(\delta)$. Since $\tilde{K}$ is a finite dimensional matrix-valued function, we verify the integrability coefficient-wise, following \citet{sutherland2015}'s demonstration. Namely, without loss of generality we show
+\begin{equation*}
+  \left[\frac{\partial}{\partial \delta}\expectation \tilde{K}(\delta)\right]_{lm} = \expectation \frac{\partial}{\partial \delta} \left[\tilde{K}(\delta)\right]_{lm}
+\end{equation*}
+where $[A]_{lm}$ denotes the $l$-th row and $m$-th column element of the matrix A.
+\begin{proposition}[Differentiation under the integral sign]
+\label{pr:diff_under_int}
+Let $\mathcal{X}$ be an open subset of $\mathbb{R}^d$ and $\Omega$ be a measured space. Suppose that the function $f:\mathcal{X}\times\Omega\to\mathbb{R}$ verifies the following conditions:
+\begin{itemize}
+  \item $f(x,\omega)$ is a measurable function of $\omega$ for each $x$ in $\mathcal{X}$.
+  \item For almost all $\omega$ in $\Omega$, the derivative $\partial f(x, \omega)/\partial x_i$ exists for all $x$ in $\mathcal{X}$.
+  \item There is an integrable function $\Theta:\Omega\to\mathbb{R}$ such that $\abs{\partial f(x, \omega)/\partial x_i}\le\Theta(\omega)$ for all $x$ in $\mathcal{X}$.
+\end{itemize}
+Then
+\begin{equation*}
+  \frac{\partial}{\partial x_i} \int_\Omega f(x,\omega)d\omega = \int_\Omega \frac{\partial}{\partial x_i}f(x,\omega)d\omega.
+\end{equation*}
+\end{proposition}
+Define the function $\tilde{G}_{x,y}^{i,l,m}(t,\omega):\mathbb{R}\times\Omega\to\mathbb{R}$ by $\tilde{G}_{x,y}^{i,l,m}(t,\omega)=\left[\tilde{K}(x+te_i-y)\right]_{lm}=\left[\tilde{G}_{x,y}^{i}(t,\omega)\right]_{lm}$, where $e_i$ is the $i$-th standard basis vector.
+Then $\tilde{G}_{x,y}^{i,l,m}$ is integrable w.r.t. $\omega$ since
+\begin{equation*}
+  \int_\Omega \tilde{G}_{x,y}^{i,l,m}(t,\omega) d\omega= \expectation \left[\tilde{K}(x+te_i-y)\right]_{lm}=\left[K(x+te_i-y)\right]_{lm} < \infty.
+\end{equation*}
+Additionally for any $\omega$ in $\Omega$, $\partial/\partial t \tilde{G}_{x,y}^{i,l,m}(t,\omega)$ exists and satisfies
+\begin{equation*}\scriptsize
+  \begin{aligned}
+    \expectation \abs{\frac{\partial}{\partial t}\tilde{G}_{x,y}^{i,l,m}(t,\omega)}
+    &= \expectation \abs{\frac{1}{D}\sum_{j=1}^DA(\omega)_{lm}\left(\sin\inner{y,\omega_j}\frac{\partial}{\partial t}\sin(\inner{x,\omega_j}+t\omega_{ij})+\cos\inner{y,\omega_j}\frac{\partial}{\partial t}\cos(\inner{x,\omega_j}+t\omega_{ij})\right)} \\
+    &=\expectation \abs{\frac{1}{D}\sum_{j=1}^DA(\omega)_{lm}\left(\omega_{ji}\sin\inner{y,\omega_j}\sin(\inner{x,\omega_j}+t\omega_{ji})-\omega_{ji}\cos\inner{y,\omega_j}\cos(\inner{x,\omega_j}+t\omega_{ji})\right)} \\
+    &\le\expectation\left[ \frac{1}{D}\sum_{j=1}^D\abs{A(\omega)_{lm}\omega_{ji}\sin\inner{y,\omega_j}\sin(\inner{x,\omega_j}+t\omega_{ji})}+\abs{A(\omega)_{lm}\omega_{ji}\cos\inner{y,\omega_j}\cos(\inner{x,\omega_j}+t\omega_{ji})}\right] \\
+    &\le \expectation \left[\frac{1}{D}\sum_{j=1}^D2\abs{A(\omega)_{lm}\omega_{ji}}\right].
+  \end{aligned}
+\end{equation*}
+Hence
+\begin{equation*}
+  \begin{aligned}
+  \expectation \abs{\frac{\partial}{\partial t}\tilde{G}_{x,y}^{i}(t,\omega)} &\le 2\expectation \left[\norm{\omega \otimes A(\omega)}_1\right].
+  \end{aligned}
+\end{equation*}
+which is assumed to exist since in finite dimensions all norms are equivalent and $\expectation_{\mu}\left[\norm{\omega}^2_2\norm{A(\omega)}^2_2\right]$ is assume to exists.
+Thus applying \cref{pr:diff_under_int} we have $\left[\frac{\partial}{\partial \delta_i}\expectation \tilde{K}(\delta)\right]_{lm} = \expectation \frac{\partial}{\partial \delta_i} \left[\tilde{K}(\delta)\right]_{lm}$ The same holds for $y$ by symmetry.
+Combining the results for each component $x_i$ and for each element $lm$, we get that $\frac{\partial}{\partial \delta}\expectation \tilde{K}(\delta) = \expectation \frac{\partial}{\partial \delta}\tilde{K}(\delta)$.
+
+\subsection{Bounding the Lipschitz constant}
+\paragraph{}
+Since $F$ is differentiable, $L_{F}=\norm{\frac{\partial F}{\partial \delta}(\delta^*)}_2$ where $\delta^*=\argmax_{\delta\in\mathcal{D}_{\mathcal{C}}}\norm{\frac{\partial F}{\partial \delta}(\delta)}_2$.
+\begin{equation*}
+\begin{aligned}
+\expectation_{\mu,\delta^*}\left[ L_F^2 \right] &= \expectation_{\mu,\delta^*} \norm{\frac{\partial \tilde{K}}{\partial \delta}(\delta^*)-\frac{\partial K_0}{\partial \delta}(\delta^*)}^2_2 \\
+&\le \expectation_{\delta^*}\left[ \expectation_{\mu} \norm{\frac{\partial \tilde{K}}{\partial \delta}(\delta^*)}_2^2 - 2\norm{\frac{\partial K_0}{\partial \delta}(\delta^*)}_2\expectation_{\mu} \norm{\frac{\partial \tilde{K}}{\partial \delta}(\delta^*)}_2 + \norm{\frac{\partial K_0}{\partial \delta}(\delta^*)}_2^2 \right]
+\end{aligned}
+\end{equation*}
+
+%% REMOVE SIGN IN BOCHNER INTEGRAL SIGN
+
+Using Jensen's inequality $ \norm{\expectation_\mu\frac{\partial \tilde{K}}{\partial \delta}(\delta^*)}_2\le\expectation_\mu\norm{\frac{\partial \tilde{K}}{\partial \delta}(\delta^*)}_2$ and $\frac{\partial}{\partial \delta}\expectation \tilde{K}(\delta) = \expectation \frac{\partial}{\partial \delta}\tilde{K}(\delta)$. (see \cref{subsubsec:regularity}), $\expectation_\mu\frac{\partial \tilde{K}}{\partial \delta}(\delta^*)=\frac{\partial}{\partial \delta}\expectation_\mu\tilde{K}(\delta^*)=\frac{\partial K_0}{\partial \delta}(\delta^*)$ thus
+\begin{equation*}
+\begin{aligned}
+\expectation_{\mu,\delta^*}\left[ L_F^2 \right] &\le \expectation_{\delta^*}\left[ \expectation_\mu \norm{\frac{\partial \tilde{K}}{\partial \delta}(\delta^*)}_2^2 - 2\norm{\frac{\partial K_0}{\partial \delta}(\delta^*)}_2^2 + \norm{\frac{\partial K_0}{\partial \delta}(\delta^*)}_2^2 \right] \\
+&= \expectation_{\mu,\delta^*}\norm{\frac{\partial \tilde{K}}{\partial \delta}(\delta^*)}_2^2-\expectation_{\delta^*}\norm{\frac{\partial K_0}{\partial \delta}(\delta^*)}_2^2 \\
+&\le \expectation_{\mu,\delta^*}\norm{\frac{\partial \tilde{K}}{\partial \delta}(\delta^*)}_2^2 \\
+&= \expectation_{\mu,\delta^*}\norm{\frac{\partial }{\partial \delta^*}\cos\inner{\delta^*,\omega}A(\omega) }_2^2 \\
+&= \expectation_{\mu,\delta^*}\norm{ -\omega\sin( \inner{\delta^*,\omega}) \otimes A(\omega) }_2^2 \\
+&\le \expectation_{\mu}\left[\norm{\omega}_2^2\norm{A(\omega)}_2^2\right] := \sigma_p^2
+\end{aligned}
+\end{equation*}
+Eventually applying Markov's inequality yields
+\begin{equation}
+\label{eq:Lipschitz_bound}
+\probability \left\{ L_{F} \ge \frac{\epsilon}{2r} \right\} = \probability \left\{ L_{F}^2 \ge \left(\frac{\epsilon}{2r}\right)^2 \right\} \le \sigma_p^2\left(\frac{2r}{\epsilon} \right)^2.
+\end{equation}
+
+\subsection[Bounding F on a given anchor point]{Bounding $F$ on a given anchor point $\delta_i$}
+
+To bound $\norm{F(\delta_i)}_2$, Hoeffding inequality devoted to matrix concentration \cite{Mackey2014} can be applied. We prefer here to turn to tighter and refined inequalities such as Matrix Bernstein inequalities (\citet{sutherland2015} also pointed that for the scalar case). If we had bounded ORFF, we could use the following Bernstein matrix concentration inequality proposed in \cite{Tropp,Koltchinskii2013remark}.
+
+\begin{theorem}[Bounded non-commutative Bernstein]\label{th:bernstein1}
+Verbatim from Theorem 3 of \citet{Koltchinskii2013remark},
+consider a sequence $(X_{j})_{j=1}^D$ of $D$ independent Hermitian $p \times p$ random matrices that satisfy $\expectation X_{j} = 0$ and suppose that for some constant $U > 0$, $\norm{X_{j}}_2 \leq U$ for each index $j$. Denote $B = \norm{\expectation[X_1^2 + \ldots X_D^2]}_2$.
+Then, for all $\epsilon \geq 0$,
+\begin{equation*}
+\probability\left\{\norm{\sum_{j=1}^D X_{j}} \geq \epsilon \right\} \leq p \exp\left(-\frac{\epsilon^2}{2B + 2U\epsilon/3}\right)
+\end{equation*}
+\end{theorem}
+However, to cover the general case including unbounded ORFFs like curl and div-free ORFFs, we choose a version of Bernstein matrix concentration inequality proposed in \cite{Koltchinskii2013remark} that allow to consider matrices are not uniformly bounded but have subexponential tails. In the following we use the notion of Orlicz norm to bound random variable by their tail behavior rather than their value.  
+\begin{definition}[Orlicz norm]
+We follow the definition given by \citet{Koltchinskii2013remark}.
+Let $\psi:\mathbb{R}_+\to\mathbb{R}_+$ be a non-decreasing convex function with $\psi(0)=0$. For a random variable $X$ on a measured space $(\Omega,\mathcal{T}(\Omega),\mu)$, $
+  \norm{X}_{\psi} := \inf \left\{ C > 0 \,\, \middle| \,\, \expectation[\psi\left( \abs{X}/C \right)]\le 1 \right\}$.
+\end{definition}
+We now fix $\psi(t)=\psi_1(t)=\exp(t)-1$. We also introduce two technical lemmas related to Orlicz norm. The first one relates the $\psi_1$-Orlicz norm to the moment generating function ($\MGF$).
+\begin{lemma}
+Let $X$ be a random variable with a strictly monotonic moment-generating function. We have $\norm{X}_{\psi_1}^{-1}=\MGF_{\abs{X}}^{-1}(2)$.
+\label{lm:orlicz_mgf}
+\end{lemma}
+\begin{proof}
+We have 
+\begin{equation*}
+\begin{aligned}
+\norm{X}_{\psi_1}&=\inf \left\{ C > 0 \,\, \middle| \,\, \expectation[\exp\left( \abs{X}/C \right)]\le 2 \right\}
+&=\frac{1}{\sup \left\{ C > 0 \,\, \middle| \,\, \MGF_{\abs{X}}(C)\le 2\right\}}
+\end{aligned}
+\end{equation*}
+$X$ has strictly monotonic moment-generating thus $C^{-1}=\MGF^{-1}_{\abs{X}}(2)$. Hence $\norm{X}_{\psi_1}^{-1}=\MGF^{-1}_{\abs{X}}(2)$.
+\end{proof}
+The second lemma gives the Orlicz norm of a positive constant.
+\begin{lemma}
+If $a\in\mathbb{R}_+$ then $\norm{a}_{\psi_1} = \frac{a}{\ln(2)}<2a$.
+\label{lm:orlicz_cte}
+\end{lemma}
+\begin{proof}
+We consider $a$ as a positive constant random variable, whose MGF is $\MGF_a(t)=\exp(at)$. From \cref{lm:orlicz_mgf}, $\norm{a}_{\psi_1}=\frac{1}{\MGF_X^{-1}(2)}$. Then $\MGF^{-1}_{\abs{a}}(2)=\frac{\ln(2)}{\abs{a}}$, $a \neq 0$. If $a=0$ then $\norm{a}_{\psi_1}=0$ by definition of a norm. Thus $\norm{a}_{\psi_1} = \frac{a}{\ln(2)}$.
+\end{proof}
+We now turn our attention to \citeauthor{Koltchinskii2013remark}'s theorem to bound $F$ with high probability on the anchors.
+\begin{theorem}[Unbounded non-commutative Bernstein]
+\label{th:matrix_bernstein}
+Verbatim from Theorem 4 of \citet{Koltchinskii2013remark}.
+Consider a sequence $(X_{j})_{j=1}^D$ of $D$ independent Hermitian $p \times p$ random matrices, such that $\expectation X_j = 0$ for all $j=1,\hdots,D$. Define
+\begin{equation*}
+F := \sum_{j=1}^D X_j \quad \text{and} \quad B := \norm{\expectation\left[ \sum_{j=1}^D X_j^2 \right]}_2.
+\end{equation*}
+Suppose that,
+\begin{equation*}
+M = 2\max_{1\le j\le D}\norm{\norm{X_j}_2}_{\psi}
+\end{equation*}
+Let $\Delta\in\left]0;\frac{2}{e-1}\right[$ and
+\begin{equation*}
+\bar{U}:= M\log \left( \frac{2}{\Delta}\frac{M^2}{B^2}+1\right)
+\end{equation*}
+Then, for $\epsilon\bar{U}\le(e-1)(1+\Delta)B$,
+\begin{equation}
+\probability\left\{ \norm{F}_2 \ge \epsilon \right\} \le 2p\exp\left( -\frac{\epsilon^2}{2(1+\Delta)B+2\epsilon\bar{U}/3}\right)
+\end{equation}
+and for $\epsilon\bar{U}>(e-1)(1+\Delta)B$,
+\begin{equation}
+\probability\left\{ \norm{F}_2 \ge \epsilon \right\} \le 2p\exp\left( -\frac{\epsilon}{(e-1)\bar{U}} \right).
+\end{equation}
+\end{theorem}
+
+Let $\psi=\psi_1$. To use this theorem, we set: $X_j=F^j(\delta_i)$.
+We have indeed: $\expectation_{\mu}[F^j(\delta_i)] = 0$ since $\tilde{K}(\delta_i)$ is the Monte-Carlo approximation of $K_0(\delta_i)$ and the matrices $F^j(\delta_i)$ are Hermitian.
+We assume we can bound all the Orlicz norms of the $F^j(\delta_i)=\frac{1}{D}(\tilde{K}^j(\delta_i) - K_0(\delta_i))$. In the following we use a constant $m$ such that $m_i=D M$. Using \cref{lm:orlicz_cte} and the sub-additivity of the $\norm{.}_2$ and $\norm{.}_{\psi_1}$ norm,
+\begin{equation*}
+\begin{aligned}
+m_i&=2D\max_{1\le j\le D}\norm{\norm{F^j(\delta_i)}_2}_{\psi_1}\\
+ &\le 2\max_{1\le j\le D}\norm{\norm{\tilde{K}^j(\delta_i)}_2}_{\psi_1} + 2\norm{\norm{K_0(\delta_i)}_2}_{\psi_1}\\
+ &<4\max_{1\le j\le D}\norm{\norm{A(\omega_j)}_2}_{\psi_1}+4\norm{K_0(\delta_i)}_2 \\
+ &=4(\norm{\norm{A(\omega)}_2}_{\psi_1}+\norm{K_0(\delta_i)}_2)
+\end{aligned}
+\end{equation*}
+We define $\bar{u}_i=D\bar{U}$ and $b_i= DB$. Then $\bar{u}_i$ can be re-written using $m_i$ and $D$:
+\begin{equation*}
+ \bar{u_i}=m_i \log \left( \frac{2}{\Delta}\frac{m_i^2}{b_i^2}+1\right) \text{ and } b_i = D\norm{\expectation_\mu\left[\sum_{j=1}^D F^j(\delta_i)^2 \right]}_2=D\variance_\mu\left[ \tilde{K}(\delta_i)^2 \right].
+\end{equation*}
+Then, we get for all $i=1,\hdots, T$:
+\begin{equation}
+\probability\left\{ \norm{F(\delta_i)}_2 \ge \epsilon \right\} \le 2p \begin{cases}
+\exp\left( -\frac{D\epsilon^2}{2(1+\Delta)b_i+2\epsilon\bar{u}_i/3}\right) & \text{if } \epsilon\bar{u}_i\le(e-1)(1+\Delta)b_i, \\
+\exp\left( -\frac{D\epsilon}{(e-1)\bar{u}_i} \right) & \text{otherwise.}
+\end{cases}
+\end{equation}
+To simplify the equation we take $\Delta=1$, thus
+\begin{equation}
+\probability\left\{ \norm{F(\delta_i)}_2 \ge \epsilon \right\} \le 2p \begin{cases}
+\exp\left( -\frac{D\epsilon^2}{4b_i+2\epsilon\bar{u}_i/3}\right) & \text{if } \epsilon\bar{u}_i\le(e-1)2b_i, \\
+\exp\left( -\frac{D\epsilon}{(e-1)\bar{u}_i} \right) & \text{otherwise.}
+\end{cases}
+\end{equation}
+To unify the bound on each anchor we define two constant:
+\begin{equation*}
+\begin{aligned}
+m&=4(\norm{\norm{A(\omega)}_2}_{\psi_1}+\sup_{\delta\in\mathcal{D}_\mathcal{C}}\norm{K_0(\delta)}_2)\ge \max_{i=1,\hdots T} m_i \\
+b&=
+\sup_{\delta\in\mathcal{D}_\mathcal{C}} D\variance_\mu\left[ \tilde{K}(\delta) \right] \ge \max_{i=1,\hdots T} b_i.
+\end{aligned}
+\end{equation*}
+% : for $\epsilon\bar{u}_i\le(e-1)(1+\delta)b_i$,
+% \begin{equation}
+% \probability\left\{ \norm{F(\delta_i)} \ge \epsilon \right\} \le 2p
+% \end{equation}
+% and for $\epsilon\bar{u}>(e-1)(1+\delta)b$,
+% \begin{equation}
+% \probability\left\{ \norm{F(\delta_i)} \ge \epsilon \right\} \le 2p\exp\left( -\frac{D\epsilon}{(e-1)\bar{u}} \right).
+% \end{equation}
+\subsection{Union bound}
+% We note $b=\sup_{\delta\in\mathcal{D}_\mathcal{C}}D\norm{\expectation\left[F^j(\delta)^2\right]}_2 \ge \max_{i=1,\hdots, T} b_i$, $m=\max_{i=1,\hdots, T} m_i$ and $\bar{u}=\max_{i=1,\hdots, T} \bar{u}_i$. 
+Then take the union bound over the centers of the $\epsilon$-net:
+\begin{equation}
+\label{eq:anchor_bound}
+\probability\left\{ \bigcup_{i=1}^D\norm{F(\delta_i)}_2 \ge \frac{\epsilon}{2}\right\} \le 2Tp \begin{cases} \exp\left( -\frac{\epsilon^2D}{8\left(2b+\frac{2\epsilon}{6}\bar{u}\right)}\right) & \text{if}\enskip \epsilon\bar{u}\le(e-1)2b \\
+\exp\left( -\frac{\epsilon D}{2(e-1)\bar{u}} \right) & \text{otherwise}.
+\end{cases}
+\end{equation}
+
+\subsubsection[Optimizing over r]{Optimizing over $r$}
+Combining \cref{eq:anchor_bound} and \cref{eq:Lipschitz_bound} yields
+\begin{equation*}
+\probability \left\{ \sup_{\delta\in\mathcal{D}_{\mathcal{C}}} \norm{F(\delta)}_2 \le \epsilon \right\} = \probability \left\{ \norm{F}_\infty \le \epsilon \right\} \ge 1 - \kappa_1 r^{-d} - \kappa_2 r^2,
+\end{equation*}
+with
+\begin{equation*}
+\kappa_2=4\sigma_p^2\epsilon^{-2}
+\quad\text{and}\quad \kappa_1 = 2p(4\abs{\mathcal{C}})^d\begin{cases} \exp\left( -\frac{\epsilon^2 D}{16\left(b+\frac{\epsilon}{6}\bar{u}\right)}\right) & \text{if}\enskip \epsilon\bar{u}\le 2(e-1)b \\
+\exp\left( -\frac{\epsilon D}{2(e-1)\bar{u}} \right) & \text{otherwise}.
+\end{cases}
+\end{equation*}
+we choose $r$ such that $d\kappa_1r^{-d-1}-2\kappa_2r=0$, i.e. $r=\left(\frac{d\kappa_1}{2\kappa_2}\right)^{\frac{1}{d+2}}$. Eventually let $C'_d=\left(\left(\frac{d}{2}\right)^{\frac{-d}{d+2}}+\left(\frac{d}{2}\right)^{\frac{2}{d+2}}\right)$. The bound becomes
+\begin{equation*}
+\begin{aligned}
+\probability \left\{ \norm{F}_\infty \ge \epsilon \right\}
+&\le C'_d \kappa_1^{\frac{2}{d+2}}\kappa_2^{\frac{d}{d+2}} \\
+&= C'_d\left(4\sigma_p^2\epsilon^{-2}\right)^{\frac{d}{d+2}} \left(2p(4\abs{\mathcal{C}})^d\begin{cases} \exp\left( -\frac{\epsilon^2 D}{16\left(b+\frac{\epsilon}{6}\bar{u}\right)}\right) & \text{if}\enskip \epsilon\bar{u}\le 2(e-1)b \\ \exp\left( -\frac{\epsilon D}{2(e-1)\bar{u}} \right) & \text{otherwise} \end{cases} \right)^{\frac{2}{d+2}} \\
+&= p C'_d 2^{\frac{2+4d+2d}{d+2}}\left( \frac{\sigma_p \abs{\mathcal{C}}}{\epsilon} \right)^{\frac{2d}{d+2}} \begin{cases} \exp\left( -\frac{\epsilon^2}{8(d+2)\left(b+\frac{\epsilon}{6}\bar{u}\right)}\right) & \text{if}\enskip \epsilon\bar{u}\le 2(e-1)b \\ \exp\left( -\frac{\epsilon}{(d+2)(e-1)\bar{u}} \right) & \text{otherwise} \end{cases} \\
+&= p C'_d 2^{\frac{6d+2}{d+2}}\left( \frac{\sigma_p \abs{\mathcal{C}}}{\epsilon} \right)^{\frac{2}{1+2/d}} \begin{cases} \exp\left( -\frac{\epsilon^2}{8(d+2)\left(b+\frac{\epsilon}{6}\bar{u}\right)}\right) & \text{if}\enskip \epsilon\bar{u}\le 2(e-1)b \\ \exp\left( -\frac{\epsilon}{(d+2)(e-1)\bar{u}} \right) & \text{otherwise}. \end{cases}
+\end{aligned}
+\end{equation*}
+Conclude the proof by taking $C_{d,p}=pC'_d 2^{\frac{6d+2}{d+2}}$.
+
+\section{Proof of \cref{pr:variance_bound}}
+\label{sec:variance_bound}
+We recall the notations $\delta=x-z$, $\tilde{K}(x,z)=\tilde{\Phi}(x)\tilde{\Phi}(z)$, $\tilde{K}^j(x,z)=\Phi_x(\omega_j)\Phi_z(\omega_j)$ and $K_0(\delta)=K(x,z)$.
+\begin{proof}
+We fix $\delta\in\mathcal{D}_{\mathcal{C}}$. From the definition of the variance, using the fact that the vectors $\omega_j$ are i.i.d. random variables,
+\begin{equation*}
+\begin{aligned}
+\variance_\mu\left[\tilde{K}_0(\delta) \right] &= \expectation_\mu\left[\frac{1}{D}\sum_{j=1}^D\tilde{K}^j(\delta) - K_0(\delta)\right]^2\\
+&=\frac{1}{D^2}\sum_{j=1}^D \expectation_\mu\left[\left(\tilde{K}^j(\delta) - K_0(\delta)\right)^2\right] \\
+&= \frac{1}{D}\expectation_{\mu}\left[\left(\tilde{K}^j(\delta)^2 - \tilde{K}^j(\delta)K_0(\delta) - K_0(\delta)\tilde{K}^j(\delta) + K_0(\delta)^2\right)\right].
+\end{aligned}
+\end{equation*}
+From the definition of $\tilde{K}^j$, $\expectation_{\mu}[\tilde{K}^j(\delta)] = K_0(\delta)$, which leads to
+\begin{equation*}
+\norm{\variance_\mu\left[\tilde{K}_0(\delta) \right]}_2= \frac{1}{D} \norm{\expectation_{\mu}\left(\tilde{K}^j(\delta)^2- K_0(\delta)^2\right)}_2.
+\end{equation*}
+A trigonometric identity gives us $(\cos \inner{\omega,\delta})^2 = \frac{1}{2}(\cos \inner{\omega,2\delta} + \cos \inner{\omega,0})$
+\begin{equation*}
+\begin{aligned}
+\norm{\variance_\mu\left[\tilde{K}_0(\delta) \right]}_2&= \frac{1}{D}\norm{\frac{1}{2}\expectation_\mu\left[(\cos\inner{\omega,2\delta} + \cos \inner{\omega,0})A(\omega)^2\right] - K_0(\delta)^2}_2\\
+&= \frac{1}{2D}\norm{\expectation_\mu\left[(\cos\inner{\omega,2\delta} + \cos \inner{\omega,0})A(\omega)^2\right] - \frac{2}{D}K_0(\delta)^2}_2.
+\end{aligned}
+\end{equation*}
+Moreover, we write the expectation of a matrix product coefficient-wise: $\forall \ell, m \inrange{1}{p}$,
+\begin{multline*}
+\expectation_{\mu}\left[\left(\cos \inner{\omega,2\delta} A(\omega)^2\right)\right]_{\ell m} = \\ \sum_{r=1}^p \expectation_{\mu}\left[ \cos \inner{\omega,2\delta}A(\omega)\right]_{\ell r}\expectation_{\mu}\left[ A(\omega)\right]_{r m} + \sum_{r=1}^p \covariance{\cos \inner{\omega,2\delta}A(\omega)_{\ell r}, A(\omega)_{r m}}.
+\end{multline*}
+Thus,
+\begin{equation*}
+\expectation_\mu\left[\left(\cos \inner{\omega,2\delta} A(\omega)^2\right)\right] = \expectation_{\mu}[\cos \inner{\omega,2\delta}A(\omega)]\expectation_{\mu}[A(\omega)] + \Sigma^{\cos} = K_0(2\delta)\expectation_{\mu}[A(\omega)] + \Sigma^{\cos}
+\end{equation*}
+where the random matrix $\Sigma^{\cos}$ is defined by: $\Sigma_{\ell m}^{\cos} = \sum_{r=1}^p \covariance{\cos \inner{\omega,2\delta}A(\omega)_{\ell r}, A(\omega)_{r m}}$. Similarly, we get $\expectation_{\mu}\left[\cos \inner{\omega,0} A(\omega)^2\right]=K_0(0)\expectation_\mu\left[A(\omega)\right] + \Sigma^{\cos}$. Therefore,
+\begin{equation*}
+\begin{aligned}
+\norm{\variance_\mu\left[\tilde{K}_0(\delta) \right]}_2 &= \frac{1}{2D} \norm{(K_0(2 \delta)+K_0(0))\expectation_\mu[A(\omega)] -2K_0(\delta)^2+ 2 \Sigma^{\cos}}_2 \\
+&\leq \frac{1}{2D}\left[\norm{\left(K_0(2 \delta)+K_0(0)\right)\expectation_\mu[A(\omega)] - 2 K_0(\delta)^2}_2 +2\norm{\variance_{\mu}[A(\omega)]}_2 \right],\label{eq:last-inequality}
+\end{aligned}
+\end{equation*}
+using $\norm{\Sigma^{\cos}}_2 \leq \norm{\variance_{\mu}[A(\omega)]}_2$.
+\end{proof}
+
+\section{Additional information and results}
+\subsection{Implementation detail}
+\label{subsec:implementation_detail}
+ For each $\omega_j \sim \mu$, let $B(\omega_j)$ be a $p$ by $p'$ matrix such that $B(\omega_j)B(\omega_j)^*=A(\omega_j)$. In practice, making a prediction $y=h(x)$ using directly the formula $h(x)=\tilde{\Phi}(x)^*\theta$ is prohibitive. Indeed, if $\Phi(x)=\Vect_{j=1}^D\exp(-i\inner{x,\omega_j})B(\omega_j)^*B(\omega_j)$, it would cost $O(Dp'p)$ operation to make a prediction, since $\tilde{\Phi(x)}$ is a $Dp'$ by $p$ matrix.
+
+\subsubsection{Minimizing Eq. 11 in the main paper}
+Recall we want to minimize
+\begin{equation}
+  \label{eq:stein1}
+  \theta_* = \argmin_{\theta\in\mathbb{R}^{p'D}}\norm{ \tilde{\phi}(X)^*\theta -Y}^2+\lambda\norm{\theta}^2.
+\end{equation}
+The idea is to replace the expensive computation of the matrix-vector product by $\tilde{\Phi}(X)^*\theta$ by a cheaper linear operator $P_x$ such that $\tilde{\Phi}(X)^*\theta=P_x\theta$. In other word, we minimize:
+\begin{equation}
+  \label{eq:stein2}
+  \theta_* = \argmin_{\theta\in\mathbb{R}^{p'D}}\norm{ P_X\theta -Y}^2+\lambda\norm{\theta}^2.
+\end{equation}
+Among many possibilities of solving \cref{eq:stein2}, we focused on two types of methods:
+\begin{enumerate}[i)]
+    \item Gradient based methods: to solve \cref{eq:stein2} one can iterate $\theta_{t+1}=\theta_t - \eta_t(P_X^*(P_X\theta_t-y)+\lambda\theta_t)$. replace $P_X$ by $P_{x_t}$, where $x_t$ is a random sample of $X$ at iteration $T$ to perform a stochastic gradient descent.
+    \item Linear methods: since the optimization problem defined in \cref{eq:stein2} is convex, one can find a solution to the first order condition, namely $\theta_*$ such that $(P_X^*P_X) \theta_*=P_X^*y$. Many Iterative solvers able to solve such linear system are available, such as \citet{sonneveld2008idr} or \citet{fong2011lsmr}.
+\end{enumerate}
+
+\subsubsection{Defining efficient linear operators}
+\paragraph{Decomposable kernel}
+Recall that for the decomposable kernel $K_0(\delta)=k_0(\delta)A$ where $k_0$ is a scalar shift-invariant kernel, $A(\omega_j)=A=BB^*$ and
+\begin{equation*}
+    \tilde{\Phi}(x)=\Vect_{j=1}^D\exp(-i\inner{x,\omega_j})B^* =\tilde{\phi}(x)\otimes B^*
+\end{equation*}
+where $\tilde{\phi}(x)=\vect_{j=1}^D\exp(-i\inner{x,\omega_j})$ is the RFF corresponding to the scalar kernel $k_0$. Hence $h(x)$ can be rewritten $h(x)=(\tilde{\phi}(x)\otimes B^*)^*\Theta =\text{vec}(\tilde{\phi}(x)^*\Theta B^*)$, where $\Theta$ is a $D$ by $p'$ matrix such that $\text{vec}(\Theta)=\Theta$. Eventually we define the following linear (in $\theta$) operator: $P^\text{dec}_x:\theta\mapsto \text{vec}(\tilde{\phi}(x)^*\Theta B^*).$ Then $h(x)=P^\text{dec}_x \theta=\tilde{\Phi}(x)^*\theta$.
+Using this formulation, it only costs $O(Dp'+p'p)$ operations to make a prediction. If $B=I_d$ it reduces to $O(Dp)$. Moreover this formulation cuts down memory consumption from $O(Dp'p)$ to $O(D+p'p)$.
+
+\paragraph{Curl-free kernel}
+For the Gaussian curl-free kernel we have, $K_0(\delta)=-\nabla\nabla^Tk_0(\delta)$ and the associated feature map is $\Phi(x)=\Vect_{j=1}^D\exp(-i\inner{x,\omega_j})\omega_j^*$. In the same spirit we can define a linear operator
+\begin{equation*}
+    P^\text{curl}_x:\theta\mapsto \text{vec}\left(\sum_{j=1}^D\tilde{\phi}(x)_j^*\Theta_j \omega_j\right),
+\end{equation*}
+such that $h(x)=P^\text{curl}_x \theta=\tilde{\Phi}(x)^*\theta$. Here the computation time for a prediction is $O(Dp)$ and uses $O(D)$ memory.
+
+\paragraph{Div-free kernel}
+For the Gaussian divergence-free kernel, $K_0(\delta)=(\nabla\nabla^T-I\Delta)k_0(\delta)$ and $\Phi(x)=\Vect_{j=1}^D\exp(-i\inner{x,\omega_j})(I-\omega_j^*\omega_j)^{1/2}$. Hence, we can define a linear operator
+\begin{equation*}
+    P^\text{div}_x:\theta\mapsto \text{vec}\left(\sum_{j=1}^D\tilde{\phi}(x)_j^*\Theta_j (I_d-\omega_j\omega_j^*)^{1/2}\right),
+\end{equation*}
+such that $h(x)=P^\text{div}_x \theta=\tilde{\Phi}(x)^*\theta$. Here the computation time for a prediction is $O(Dp^2)$ and uses $O(Dp^2)$ memory.
+
+% \subsection{Gradient descent algorithm}
+% One needs to compute the gradient of the ridge optimization problem for one or many data points, at each iteration. Let $\tilde{\phi}^{(j)}$ be the $j$-th component of the scalar feature map $\tilde{\phi}(x)$ ($\tilde{\phi}(x)$ is a vector of size $D$) associated to the operator-valued kernel. Moreover, let $\Theta^{(j)}$ be the $j$-th column of the matrix $\Theta$, then,
+
+% \begin{equation*}
+%   \Theta_{t+1} \gets \Theta_{t} - \eta_t \left(\Vect_{j=1}^D\left(\frac{1}{N}\sum_{i=1}^N\left(B(\omega_j)^*(\tilde{f}_{\Theta_t}(x_i) - y_i)\tilde{\phi}^{(j)}(x_i)\right) + \lambda\Theta^{(j)}_{t}\right)^*\right)^*
+% \end{equation*}
+\begin{table}[!htb]
+    \centering
+    \resizebox{0.9\textwidth}{!} {
+    \begin{tabular}{cccc} \hline
+        Feature map & $P_x:\theta\mapsto$ & $P_x^*:y\mapsto$ & $P_x^*P_x:\theta\mapsto$ \\ \hline \\
+        $\Phi^{dec}(x)$ & $ \text{vec}(\tilde{\phi}(x)^*\Theta B^*)$ & $\text{vec}(\tilde{\phi}(x)y^*B)$ & $ \text{vec}(\tilde{\phi}(x)\tilde{\phi}(x)^*\Theta B^*B)$\\
+
+        $\Phi^{curl}(x)$ & $\text{vec}\left(\sum_{j=1}^D\tilde{\phi}(x)_j^*\Theta_j \omega_j\right)$ & $\vect_{j=1}^D\tilde{\phi}(x)_jy^*\omega_j$ & $\text{vec}\left(\tilde{\phi}(x)\tilde{\phi}(x)^* \left(\vect_{j=1}^D\Theta_j\norm{\omega_j}^2\right)\right)$ \\
+
+        $\Phi^{div}(x)$ & $\text{vec}\left(\sum_{j=1}^D\tilde{\phi}(x)_j^*\Theta_j (I_d-\omega_j\omega_j^*)^{1/2}\right)$ & $\vect_{j=1}^D\tilde{\phi}(x)_jy^*(I_d-\omega_j\omega_j^*)^{1/2}$ & $\text{vec}\left(\tilde{\phi}(x)\tilde{\phi}(x)^* \left(\vect_{j=1}^D\Theta_j(I_d-\omega_j\omega_j^*)\right)\right)$ \\ \hline
+    \end{tabular}
+    }
+    \caption{fast-operator for different Feature maps.}
+    \label{tb:fast-op}
+\end{table}
+
+\begin{table}[!htb]
+    \centering
+    \begin{tabular}{cccc} \hline
+        Feature map & $P_x$ & $P_x^*$ & $P_x^*P_x$ \\ \hline \\
+        $\Phi^{dec}(x)$ & $O(Dp'+pp')$ & $O(Dp'+pp')$ & $O(Dp'(D+p'))$\\
+
+        $\Phi^{curl}(x)$ & $O(Dp)$ & $O(Dp)$ & $O(D^2p+Dp)$\\
+
+        $\Phi^{div}(x)$ & $O(Dp^2)$ &  $O(Dp^2)$ & $O(D^2p+Dp^2)$ \\ \hline
+    \end{tabular}
+    \caption{Time complexity to compute different Feature maps with fast-operators (for one point $x$).}
+    \label{Optimized operator for different Feature maps.}
+\end{table}
+
+% \footenote{This complexity takes into account the time to compute the matrix square root of $A(\omega_j)$. It is possible to pre-compute these quantities if there is enough memory.}
+% \footenote{Here $d=p$.}
+
+
+% Table \cref{t:cx} gives the time and memory complexity to compute the gradient on one datapoint. For the divergence free kernel one need to compute $A(\omega_j)=B(\omega_j)B(\omega_j)^*$ for each $\omega_j$, $j\in \{1,\hdots,D\}$. This decomposition can be done when computing the gradient ($\Phi_{div}$ line of \cref{t:cx}) or when initializing the ORFF ($\Phi^{div}$ (SVD) line of \cref{t:cx}).
+% \begin{table}[ht]
+% \caption{Complexity in time and memory of ORFF methodology}
+% \label{t:cx}
+% \begin{center}
+% \begin{tabular}{cccc}
+% \hline
+% OVK & \shortstack{Time \\ (sampling)} & \shortstack{Time \\ (gradient computation, N=1)} & \shortstack{Memory \\ (gradient computation, N=1)} \\ \hline
+% $\Phi^{dec}$, $B=I_p$ & $\Omega(dD)$ & $\Omega((d+p)D)$ & $\Omega(dD)$ \\
+% $\Phi^{dec}$, $B \neq I_p$ & $\Omega(dD)$ & $\Omega((d+p^2)D)$ & $\Omega(dD)$ \\
+% $\Phi^{curl}$ & $\Omega(dD)$ & $\Omega(dD)$ & $\Omega(dD)$ \\
+% $\Phi^{div}$ & $\Omega(dD)$ & $\Omega(d^3D)$ & $\Omega(dD)$ \\
+% $\Phi^{div}$ (SVD) & $\Omega(d^2D)$ & $\Omega(d^2D)$ & $\Omega(d^2D)$ \\
+% \hline
+% \end{tabular}
+% \end{center}
+% \end{table}
+
+\subsection{Simulated dataset}
+\label{sec:more_simulation}
+% \begin{figure}[H]
+% \centering
+% \begin{tabular}{cc}
+% \includegraphics[trim=1.8cm 1cm 2cm 1cm,width=.45\textwidth,clip=true]{Figures/curl_field.eps} &
+% \includegraphics[trim=1.8cm 1cm 2cm 1cm,width=.45\textwidth,clip=true]{Figures/div_field.eps} \\
+% Curl-free & Divergence-free
+% \end{tabular}
+% \caption{Synthetic data used to train the curl-free and divergence free ORFF and OVK.}
+% \label{fig:curl-div-fields}
+% \end{figure}
+
+\paragraph{Approximation, synthetic data:} We trained both an ORFF and an OVK model on synthetic data from $\mathbb{R}^{20}\to\mathbb{R}^4$ as described in \cite{audiffren2013online}.  
+In  this  dataset,  inputs  ($x_1, \hdots, x_{20}$)  are  generated  independently  and  uniformly over $[0, 1]$ and  the  different  output  are  computed  as  follows. 
+Let $\phi(x)=(x_1^2, x_4^2, x_1x_2, x_3x_5, x_2, x_4, 1)$ and $(w_i)$ denotes the iid copies of a 7 dimensional Gaussian distribution with zero mean and covariance equal to Diag(0.5;0.25;0.1;0.05;0.15;0.1;0.15).  
+Then, the outputs of the different tasks are generated as $y_i=w_i\phi(x)$. 
+We use this dataset with $p=4$, $10^5$ instances and for the train set and also $10^5$ instances for the test set.
+\begin{figure}
+\centering
+\resizebox{.7\textwidth}{!}{%
+\input{./gfx/ORFFvsOVK.pgf}
+}
+\caption{Decomposable kernel on synthetic data: R2 score vs number of data in the train set (N)}
+\label{fig:ORFFvsOVK_dec}
+\end{figure}
+In this setting we solved the optimisation problem for both ORFF and OVK using a L-BFGS-B. \Cref{fig:ORFFvsOVK_dec} top row shows that for a fixed number of instance in the train set, OVK performs better than ORFF in terms of accuracy (R2). However ORFF scales better than OVK w.r.t. the number of data. ORFF is able to process more data than OVK in the same time and thus reach a better accuracy for a given amount of time. Bottom row shows that ORFF tends to reach OVK's accuracy for a fixed number of data when the number of features increase.
+
+\begin{figure}
+\centering
+\resizebox{.55\textwidth}{!}{%
+\input{./gfx/ORFFvsOVK_Dvariation.pgf}
+}
+\caption{Decomposable kernel on synthetic data: R2 score vs number of data in the train set(N) for different number for different number of random samples (D).}
+\label{fig:ORFFvsOVK}
+\end{figure}
+
+% \paragraph{Approximation, synthetic data with noise (Setting 2):} We also tested our approach when the output data are corrupted with a Gaussian noise with arbitrary covariance. Operator-valued kernels-based models as well as their approximations are in this case more appropriate than independent scalar-valued models. We generated a dataset $\mathcal{A}_{\text{dec}}^N=(\mathcal{X},\mathcal{Y})$ adapted to the decomposable kernel with $N$ points $x_i\in\mathcal{X}\subset\mathbb{R}^{20}$ to $y_i\in\mathcal{Y}\subset\mathbb{R}^{20}$, where the outputs have a low-rank.
+% The inputs where drawn randomly from a uniform distribution over the hypercube $\mathcal{X}=[-1;1]^{20}$. To generate the outputs we constructed an ORFF model from a decomposable kernel $K_0(\bfdelta)=Ak_0(\bfdelta)$, where $A$ is a random positive semi-definite matrix of size $20\times 20$, rank $1$ and $\norm{A}_2=1$ and $k_0$ is a Gaussian kernel with hyperparameter $\gamma=1/(2\sigma^2)$.
+% We choose $\sigma$ to be the median of the pairwise distances over all points of $\mathcal{X}$.
+% Then we generate a parameter vector for the model $\theta$ by drawing independent uniform random variable in $[-1;1]$ and generate $N$ outputs $y_i=\tilde{\Phi}_D(x_i), x_i \in \mathcal{X}, y_i \in\mathcal{Y}, i\in\{1\hdots N\}$.
+% We chose $D=10^4$ relatively large to avoid introducing too much noise due to the random sampling of the Fourier Features.
+% We compare the exact kernel method OVK with its ORFF approximation on the dataset $\mathcal{A}^{n}_{\text{dec}}$ with additive non-isotropic Gaussian noise: $y^{\text{noise}}_i=\tilde{\Phi}_D(x_i)+\epsilon_i$ where $\epsilon_i\sim\mathcal{N}(0,\Sigma)$ and $\norm{\Sigma}_2=\sqrt{\variance[y_i]}$. The results are given in \cref{tab:RMSE_ovk_vs_orff}, where the reported error is the root mean-squared error.
+% \begin{table}[!ht]
+% \centering
+% \resizebox{0.9\textwidth}{!} {
+% \begin{tabular}{ccccc}
+% N & ORFF & OVK & ORFF NOISE & OVK NOISE \\ \hline \\
+%  $10^2$ & $9.21\cdot10^{-2}\pm 4\cdot10^{-3}$ & $4.36\cdot10^{-2}\pm 7\cdot10^{-3}$ & $1.312\cdot10^{-1}\pm 1\cdot10^{-2}$& $1.222\cdot10^{-1}\pm 9\cdot10^{-2}$\\
+%  $10^3$ & $5.97\cdot10^{-2}\pm 2\cdot10^{-4}$ & $2.13\cdot10^{-2}\pm 8\cdot10^{-4}$ & $1.085\cdot10^{-1}\pm 2\cdot10^{-2}$ & $0.990\cdot10^{-1}\pm 4\cdot10^{-2}$\\
+%  $10^4$ & $3.56\cdot10^{-2}\pm 5\cdot10^{-4}$ & $1.01\cdot10^{-2}\pm 1\cdot10^{-4}$ & $.876\cdot10^{-1}\pm 3\cdot10^{-3}$ & $0.825\cdot10^{-1}\pm 2\cdot10^{-3}$\\
+%  $10^5$ & $2.89\cdot10^{-2}\pm 7\cdot10^{-4}$ & $N/A$ & $.717\cdot10^{-1}\pm 3\cdot10^{-3}$ & $N/A$\\
+% \end{tabular} }
+% \caption{RMSE, average of 10 runs on synthetic data with noise (Setting 2).}
+% \label{tab:RMSE_ovk_vs_orff}
+% \end{table}
+
+% \section{Real dataset: SARCOS (Setting 3)}
+% The SARCOS dataset is taken from \url{http://www.gaussianprocess.org/gpml/data/} website. This is an inverse dynamics problem, i.e. we have to predict the 7 joint torques given the joint positions, velocities and accelerations. Hence, we have to solve a regression problem with 21 inputs and 7 outputs which is a very nonlinear function. It has $45K$ inputs data.
+% Suppose that we are given a collection of inputs data $x_1, \hdots, x_N\in\mathbb{R}^{21}$ and a collection of output data $(y_1, t_1) \hdots, (y_N, t_N) \in \mathbb{R}\times \mathbb{N}_T$ where $T$ is the number of tasks. 
+% We consider the following multitask loss function:
+% \begin{equation}
+% l(h(x), (y,t))=\frac{1}{2}\left(\langle h(x), e_t \rangle-y\right)^2,
+% \end{equation}
+% This loss function is adapted to datasets where the number of data per tasks is unbalanced (i.e~ for one input data we observe the value of only one task and not all the tasks.). We optimise the Risk:
+% \begin{equation}
+% \frac{1}{N}\sum_{i=1}^N  l\left(h(x_i), (y_i, t_i)\right) + \frac{\lambda}{2N}||{h}||_{\mathcal{H}}^2=\frac{1}{2N}\sum_{i=1}^N \left(\langle h(x_i), e_{t_i} \rangle-y_i\right)^2 + \frac{\lambda}{2N}||{h}||_{\mathcal{H}}^2
+% \end{equation}
+% We used a model $h$ based on the decomposable kernel:
+% \begin{equation}
+% h(x)=\phi(x)^T \theta B^T
+% \end{equation}
+% we chose $B$ such that $BB^T=A$, where $A$ is the inverse graph Laplacian of the similarities between the tasks $L$:
+% \begin{equation}
+% L_{kl}=\exp\left(-\gamma\sqrt{\sum_{i=1}^N \left(y_i^k - y_i^l\right)^2}\right).
+% \end{equation}
+% We draw $N$ data randomly for each task, hence creating a dataset of $N\times 7$ data and computed the nMSE on the proposed test set (4.5K points). We repeated the experiments 80 times to avoid randomness. We choose $D=\frac{N \lor 500}{2}$ features, and optimized the problem with a second order batch gradient.
+% \begin{table}[!h]
+% \centering
+% \begin{tabular}{c|cccc}
+% N & Independant (\%) & Laplacian (\%)& p-value & T \\ \hline
+% $50\times 7$ & $23.138 \pm 0.577$ & $22.254\pm 0.536$ & $2.68\%$ & $4$(s) \\
+% $100\times 7$ & $16.191 \pm 0.221$ & $15.568 \pm 0.187$ & $<0.1\%$ & $16$(s) \\
+% $150\times 7$ & $13.821 \pm 0.115$ & $13.459 \pm 0.106$ & $<0.1\%$ & $13$(s) \\
+% $200\times 7$ & $12.713 \pm 0.0978$ & $12.554 \pm 0.0838$ & $1.52\%$ & $12$(s) \\
+% $400\times 7$ & $10.785 \pm 0.0579$ & $10.651 \pm 0.0466$ & $< 0.1\%$ & $10$(s) \\
+% $800\times 7$ & $7.512\pm 0.0344$ & $7.512\pm 0.0344$ & $100\%$ & $15$(s) \\
+% $1600\times 7$ & $6.486 \pm 0.0242$ & $6.486 \pm 0.0242$ & $100\%$ & $20$(s) \\
+% $3200\times 7$ & $5.658 \pm 0.0187$ & $5.658 \pm 0.0187$ & $100\%$ & $20$(s) \\
+% \end{tabular}
+% \caption{Error (\% of nMSE) on SARCOS dataset (Setting 3).}
+% \label{table:sarcos_supp}
+% \end{table}
+% \Cref{table:sarcos} shows that using the ORFF approximation of an operator-valued kernel with a good prior on the data improves the performances w.r.t. the independent ORFF. However the advantage seems to be less important the more data are available.
+
+\paragraph{Acknowledgement:}
+R. Brault was funded by  University of \'Evry (PhD grant numbered 76391). The
+authors are grateful to Maxime Sangnier for his relevant comments.
+% \bibliographystyle{plain}
+% \bibliographystyle{abbrvnat}
+\bibliography{cap2017.bib}
+
+\end{document}
